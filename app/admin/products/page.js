@@ -1,10 +1,9 @@
 'use client'
-import AddProducts from '@/components/AddProducts'
 import Categories from '@/components/Categories'
+import Products from '@/components/Products'
 import React, { useState } from 'react'
 
 const Page = () => {
-
     const [selectedCategory, setSelectedCategory] = useState(null);
 
     const handleCategorySelect = (category) => {
@@ -13,7 +12,7 @@ const Page = () => {
     return (
         <div className='flex'>
             <Categories onSelectCategory={handleCategorySelect} />
-            <AddProducts selectedCategory={selectedCategory} />
+            <Products selectedCategory={selectedCategory} />
         </div>
     )
 }

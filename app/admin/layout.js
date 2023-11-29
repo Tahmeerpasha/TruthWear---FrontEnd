@@ -1,6 +1,5 @@
 import { Inter } from 'next/font/google'
 import AdminNavbar from '@/components/AdminNavbar'
-import Categories from '@/components/Categories'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,7 +13,6 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className={inter.className}>
                 <AdminNavbar />
-                <Categories />
                 {children}
             </body>
         </html>

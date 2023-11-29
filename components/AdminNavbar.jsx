@@ -71,15 +71,15 @@ const AdminNavbar = () => {
             }
 
             {/* For Medium and bigger screens */}
-            <div className='hidden min-w-full h-fit bg-black items-center md:flex justify-between'>
+            <div className='hidden sticky z-50 top-0 min-w-full h-fit bg-black items-center md:flex justify-between'>
                 <div className='flex p-1 justify-start'>
                     <Image src="/logo.svg" alt="logo" width={100} height={0} className='p-2' />
                     <Image src="/white-logo.jpg" alt="logo" width={1280} height={889} className='w-[40%] bg-black' />
                 </div>
 
                 <ul className='flex justify-start text-white items-center w-full'>
-                    <li className='pl-5 pr-5 hover:underline hover:cursor-pointer font-medium text-xl'>Products</li>
-                    <li className='pl-5 pr-5 hover:underline hover:cursor-pointer font-medium text-xl'>Sales</li>
+                    <li className='pl-5 pr-5 hover:underline hover:cursor-pointer font-medium text-xl'><a href="/admin/add-product">Add Products</a></li>
+                    <li className='pl-5 pr-5 hover:underline hover:cursor-pointer font-medium text-xl'> <a href="/admin/products">Products</a> </li>
                     <li className='pl-5 pr-5 hover:underline hover:cursor-pointer font-medium text-xl'>Customer Info</li>
                     <li className='pl-5 pr-5 hover:underline hover:cursor-pointer font-medium text-xl'>{"What's New"}</li>
                 </ul>

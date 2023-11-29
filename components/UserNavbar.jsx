@@ -71,7 +71,7 @@ const UserNavbar = () => {
             }
 
             {/* For Medium and bigger screens */}
-            <div className='hidden min-w-full h-fit bg-black md:flex justify-between'>
+            <div className='hidden fixed min-w-full h-fit bg-black md:flex justify-between'>
                 <div className='flex p-1 justify-start'>
                     <Image src="/logo.svg" alt="logo" width={100} height={0} className='p-2' />
                     <Image src="/white-logo.jpg" alt="logo" width={1280} height={889} className='w-[40%] bg-black' />
