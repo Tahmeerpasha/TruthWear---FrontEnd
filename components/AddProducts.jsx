@@ -2,11 +2,11 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import { VscTriangleRight } from 'react-icons/vsc';
-import { SECRET_KEY } from './config';
+import { BASE_URL, SECRET_KEY } from './config';
 import { Button } from '@material-tailwind/react';
 
 const AddProducts = ({ selectedCategory }) => {
-    const [formData, setFormData] = useState({
+    const [formDataValue, setFormDataValue] = useState({
         name: '',
         description: '',
         stock: 0,
@@ -16,8 +16,8 @@ const AddProducts = ({ selectedCategory }) => {
 
     const handleInputChange = (e) => {
         const { name, value, type, files } = e.target;
-        setFormData({
-            ...formData,
+        setFormDataValue({
+            ...formDataValue,
             [name]: type === 'file' ? files[0] : value,
         });
     };
@@ -31,11 +31,11 @@ const AddProducts = ({ selectedCategory }) => {
 
             var formdata = new FormData();
             formdata.append("categoryName", selectedCategory);
-            formdata.append("productName", formData.name);
-            formdata.append("productDescription", formData.description);
-            formdata.append("image", formData.image);
-            formdata.append("stock", formData.stock);
-            formdata.append("price", formData.price);
+            formdata.append("productName", formDataValue.name);
+            formdata.append("productDescription", formDataValue.description);
+            formdata.append("image", formDataValue.image);
+            formdata.append("stock", formDataValue.stock);
+            formdata.append("price", formDataValue.price);
 
             var requestOptions = {
                 method: 'POST',
@@ -44,7 +44,7 @@ const AddProducts = ({ selectedCategory }) => {
                 redirect: 'follow'
             };
 
-            const response = await fetch("http://localhost:8080/api/v1/products/upload", requestOptions);
+            const response = await fetch(`${BASE_URL}/products/upload`, requestOptions);
             const data = await response.json();
 
             if (response.ok) {
@@ -57,12 +57,12 @@ const AddProducts = ({ selectedCategory }) => {
             // Handle error, e.g., show an error message
         }
         console.log(formdata)
-        console.log(formData)
+        console.log(formDataValue)
         // window.location.reload();
     };
 
     return (
-        selectedCategory == null ? '' :
+        selectedCategory === null ? <></> :
             <div className='p-5'>
                 <div className='flex gap-2 items-center'>
                     <span className='text-4xl'>Products</span>
@@ -84,7 +84,7 @@ const AddProducts = ({ selectedCategory }) => {
                     ))}
                     <div className='grid grid-cols-2 items-center gap-8'>
                         <span className='p-2 text-3xl '>Product Image:</span>
-                        <input type='file' name='image' onChange={handleInputChange} />
+                        <input type='file' name='image' accept='image/*' onChange={handleInputChange} />
                     </div>
                     <Button type='submit' value='Submit' className='bg-black mt-4 p-2 text-2xl hover:cursor-pointer'>Submit</Button>
                 </form>

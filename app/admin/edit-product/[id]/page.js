@@ -1,6 +1,6 @@
 'use client'
 // Importing necessary dependencies and components
-import { SECRET_KEY } from '@/components/config';
+import { BASE_URL, SECRET_KEY } from '@/components/config';
 import { Button } from '@material-tailwind/react';
 import React, { useEffect, useState } from 'react';
 import { VscTriangleRight } from 'react-icons/vsc';
@@ -76,7 +76,7 @@ const Page = ({ params }) => {
             };
 
             const res = await fetch(
-                `http://localhost:8080/api/v1/products/${params.id}`,
+                `${BASE_URL}/products/${params.id}`,
                 requestOptions
             );
             const data = await res.json();

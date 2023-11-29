@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 
 const Page = () => {
 
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState("");
 
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { GiConfirmed } from 'react-icons/gi';
 import { CiEdit } from 'react-icons/ci';
 import { MdDeleteOutline } from 'react-icons/md';
-import { SECRET_KEY } from './config';
+import { BASE_URL, SECRET_KEY } from './config';
 
 const Categories = ({ onSelectCategory }) => {
 
@@ -24,7 +24,7 @@ const Categories = ({ onSelectCategory }) => {
             };
 
             const response = await fetch(
-                `http://localhost:8080/api/v1/product-categories/${categoryId}`,
+                `${BASE_URL}/product-categories/${categoryId}`,
                 requestOptions
             );
 
@@ -32,9 +32,9 @@ const Categories = ({ onSelectCategory }) => {
                 throw new Error('Update not possible');
             }
 
+            fetchCategories();
             setEditableCategory(null);
             setNewCategoryName('');
-            fetchCategories();
         } catch (error) {
             console.error('Error:', error);
         }
@@ -51,7 +51,7 @@ const Categories = ({ onSelectCategory }) => {
             };
 
             const response = await fetch(
-                `http://localhost:8080/api/v1/product-categories/${categoryId}`,
+                `${BASE_URL}/product-categories/${categoryId}`,
                 requestOptions
             );
 
@@ -84,7 +84,7 @@ const Categories = ({ onSelectCategory }) => {
             };
 
             const response = await fetch(
-                'http://localhost:8080/api/v1/product-categories',
+                `${BASE_URL}/product-categories`,
                 requestOptions
             );
 
@@ -102,7 +102,7 @@ const Categories = ({ onSelectCategory }) => {
     const fetchCategories = async () => {
         try {
             const response = await fetch(
-                'http://localhost:8080/api/v1/product-categories',
+                `${BASE_URL}/product-categories`,
                 {
                     method: 'GET',
                     headers: {
@@ -130,7 +130,7 @@ const Categories = ({ onSelectCategory }) => {
 
     useEffect(() => {
         fetchCategories();
-    }, []);
+    }, [selectedCategory]);
 
     return (
         <div className='w-[20%] min-h-screen bg-black text-center text-white'>
@@ -165,16 +165,18 @@ const Categories = ({ onSelectCategory }) => {
                                 <button>
                                     <span className='p-1'>{category.categoryName}</span>
                                 </button>
-                                <CiEdit
-                                    className='text-white p-1'
-                                    size={30}
-                                    onClick={() => handleEdit(category.id, category.categoryName)}
-                                ></CiEdit>
-                                <MdDeleteOutline
-                                    className='text-white p-1'
-                                    size={30}
-                                    onClick={() => handleDelete(category.id)}
-                                ></MdDeleteOutline>
+                                {<>
+                                    <CiEdit
+                                        className='text-white p-1'
+                                        size={30}
+                                        onClick={() => handleEdit(category.id, category.categoryName)}
+                                    ></CiEdit>
+                                    <MdDeleteOutline
+                                        className='text-white p-1'
+                                        size={30}
+                                        onClick={() => handleDelete(category.id)}
+                                    ></MdDeleteOutline>
+                                </>}
                             </div>
                         )}
                     </li>

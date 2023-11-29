@@ -1,23 +1,28 @@
-'use client'
+// config.js
+
+// Products.js
 import React, { useEffect, useState } from 'react';
 import { SECRET_KEY } from './config';
 import { CardDefault } from './tailwind/CardDefault';
+import { BASE_URL } from './config';
 
 const Products = ({ selectedCategory }) => {
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const fetchProducts = async () => {
+    const fetchProducts = async (url) => {
         try {
-            var myHeaders = new Headers();
+            const myHeaders = new Headers();
             myHeaders.append("Authorization", "Bearer " + SECRET_KEY);
 
-            var requestOptions = {
+            const requestOptions = {
                 method: 'GET',
                 headers: myHeaders,
                 redirect: 'follow'
             };
 
-            const response = await fetch("http://localhost:8080/api/v1/products", requestOptions);
+            const response = await fetch(url, requestOptions);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -25,23 +30,34 @@ const Products = ({ selectedCategory }) => {
 
             const data = await response.json();
             setProducts(data);
-            console.log(data);
         } catch (error) {
-            console.error('Error:', error);
+            setError(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchProducts();
-    }, []);
+        const url = selectedCategory
+            ? `${BASE_URL}/products/category/${selectedCategory}`
+            : `${BASE_URL}/products`;
+
+        fetchProducts(url);
+    }, [selectedCategory]);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     return (
-        <div className=' w-full h-fit gap-2 grid grid-cols-3'>
-            {products.map(product => {
-                return (
-                    <CardDefault productInfo={product} key={product.id} />
-                )
-            })}
+        <div className='w-full h-fit gap-2 grid grid-cols-3'>
+            {products.map(product => (
+                <CardDefault productInfo={product} key={product.id} />
+            ))}
         </div>
     );
 };

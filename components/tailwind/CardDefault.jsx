@@ -8,9 +8,10 @@ import {
 } from "@material-tailwind/react";
 import { SECRET_KEY } from "../config";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 export function CardDefault({ productInfo }) {
-
+    const imageRef = useRef(null);
 
     const handleDelete = () => {
         // Add logic to delete the product
@@ -29,12 +30,50 @@ export function CardDefault({ productInfo }) {
             .catch(error => console.log('error', error));
     };
 
+    useEffect(() => {
+        let isMounted = true;
+
+        const fetchImage = async () => {
+            try {
+                var myHeaders = new Headers();
+                myHeaders.append('Authorization', 'Bearer ' + SECRET_KEY);
+
+                var requestOptions = {
+                    method: 'GET',
+                    headers: myHeaders,
+                    redirect: 'follow',
+                };
+
+                const response = await fetch(
+                    `http://localhost:8080/api/v1/products/image/${productInfo.id}`,
+                    requestOptions
+                );
+
+                const blob = await response.blob();
+
+                if (isMounted) {
+                    const imageUrl = URL.createObjectURL(blob);
+                    imageRef.current.src = imageUrl;
+                }
+            } catch (error) {
+                console.log('Error fetching image', error);
+            }
+        };
+
+        fetchImage();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [productInfo.id]);
+
     return (
         <Card className="mt-6 w-96 ">
             <CardHeader color="blue-gray" className="relative h-56">
                 <img
-                    src={`E:\\Development\TruthWear\Backend\TruthWear` + productInfo.image}
+                    ref={imageRef}
                     alt="card-image"
+                    className=" w-full h-full rounded-md object-fill"
                 />
             </CardHeader>
             <CardBody>
