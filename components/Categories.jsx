@@ -122,11 +122,6 @@ const Categories = ({ onSelectCategory }) => {
         }
     };
 
-    // const handleSelectedCategory = (categoryName) => {
-    //     return (
-    //         <AddProducts name={categoryName} />
-    //     )
-    // }
 
     useEffect(() => {
         fetchCategories();
