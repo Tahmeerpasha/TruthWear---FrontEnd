@@ -1,13 +1,10 @@
 'use client'
 // Login.jsx
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { login as loginAction } from '../../redux/features/authSlice'; // Replace with your actual action
 import { login } from '@/logic/authService'
 import { Button } from '@material-tailwind/react';
 
 const Login = () => {
-    const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         email: '',
         password: '',

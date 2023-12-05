@@ -1,6 +1,6 @@
 'use client'
 // Importing necessary dependencies and components
-import { BASE_URL, SECRET_KEY } from '@/components/config';
+import api from '@/logic/api';
 import { Button } from '@material-tailwind/react';
 import React, { useEffect, useState } from 'react';
 import { VscTriangleRight } from 'react-icons/vsc';
@@ -23,34 +23,23 @@ const Page = ({ params }) => {
     // Function to handle form submission
     const handleFormSubmit = (e) => {
         e.preventDefault();
+        try {
+            // Creating a FormData object with a distinct name
+            const formData = new FormData();
 
-        // Creating a FormData object with a distinct name
-        const formData = new FormData();
+            // Appending form fields to FormData
+            formData.append('productCategory', product?.category?.id || null);
+            if (formDataState.productName !== '') formData.append('productName', formDataState.productName);
+            if (formDataState.description !== '') formData.append('productDescription', formDataState.description);
+            if (formDataState.image != null) formData.append('image', formDataState.image);
+            if (formDataState.stock != 0) formData.append('stock', formDataState.stock || 0);
+            if (formDataState.price != 0) formData.append('price', formDataState.price);
+            console.log(formDataState);
+            api.put(`/products/${params.id}`, formData).then((res) => console.log(res));
+        } catch (err) {
+            console.log(err)
+        }
 
-        // Appending form fields to FormData
-        formData.append('productCategory', product?.category?.id || null);
-        if (formDataState.productName !== '') formData.append('productName', formDataState.productName);
-        if (formDataState.description !== '') formData.append('productDescription', formDataState.description);
-        if (formDataState.image != null) formData.append('image', formDataState.image);
-        if (formDataState.stock != 0) formData.append('stock', formDataState.stock || 0);
-        if (formDataState.price != 0) formData.append('price', formDataState.price);
-        console.log(formDataState);
-        // Constructing the API URL
-        const apiUrl = `http://localhost:8080/api/v1/products/${params.id}`;
-
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer " + SECRET_KEY);
-
-        var requestOptions = {
-            method: 'PUT',
-            headers: myHeaders,
-            body: formData, // Using FormData as the body
-            redirect: 'follow'
-        };
-
-        fetch(apiUrl, requestOptions)
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
     };
 
     // Function to handle input changes
@@ -66,20 +55,10 @@ const Page = ({ params }) => {
     // Function to fetch product details
     const fetchProductDetails = async () => {
         try {
-            var myHeaders = new Headers();
-            myHeaders.append('Authorization', 'Bearer ' + SECRET_KEY);
-
-            var requestOptions = {
-                method: 'GET',
-                headers: myHeaders,
-                redirect: 'follow',
-            };
-
-            const res = await fetch(
-                `${BASE_URL}/products/${params.id}`,
-                requestOptions
-            );
-            const data = await res.json();
+            const res = await api.get(`/products/${params.id}`);
+            console.log(res)
+            const data = await res.data;
+            console.log(data);
             setProduct(data);
             setLoading(false);
         } catch (error) {
