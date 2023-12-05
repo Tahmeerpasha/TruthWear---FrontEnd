@@ -6,28 +6,24 @@ import {
     Typography,
     Button,
 } from "@material-tailwind/react";
-import { SECRET_KEY } from "../config";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import api from "@/logic/api";
 
 export function CardDefault({ productInfo }) {
     const imageRef = useRef(null);
 
     const handleDelete = () => {
         // Add logic to delete the product
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer " + SECRET_KEY);
+        try {
+            api.delete(`/products/${productInfo.id}`).then((res) => {
+                console.log(res);
+                window.location.reload();
+            });
 
-        var requestOptions = {
-            method: 'DELETE',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
-
-        fetch(`http://localhost:8080/api/v1/products/${productInfo.id}`, requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
+        } catch (err) {
+            console.log(err)
+        }
     };
 
     useEffect(() => {
@@ -35,21 +31,9 @@ export function CardDefault({ productInfo }) {
 
         const fetchImage = async () => {
             try {
-                var myHeaders = new Headers();
-                myHeaders.append('Authorization', 'Bearer ' + SECRET_KEY);
-
-                var requestOptions = {
-                    method: 'GET',
-                    headers: myHeaders,
-                    redirect: 'follow',
-                };
-
-                const response = await fetch(
-                    `http://localhost:8080/api/v1/products/image/${productInfo.id}`,
-                    requestOptions
-                );
-
-                const blob = await response.blob();
+                api.defaults.responseType = 'blob';
+                const response = await api.get(`/products/image/${productInfo.id}`);
+                const blob = response.data;
 
                 if (isMounted) {
                     const imageUrl = URL.createObjectURL(blob);

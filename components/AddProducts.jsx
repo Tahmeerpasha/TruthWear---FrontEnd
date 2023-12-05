@@ -1,9 +1,9 @@
 // AddProducts.jsx
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { VscTriangleRight } from 'react-icons/vsc';
-import { BASE_URL, SECRET_KEY } from './config';
 import { Button } from '@material-tailwind/react';
+import api from '@/logic/api';
 
 const AddProducts = ({ selectedCategory }) => {
     const [formDataValue, setFormDataValue] = useState({
@@ -26,9 +26,6 @@ const AddProducts = ({ selectedCategory }) => {
         e.preventDefault();
 
         try {
-            var myHeaders = new Headers();
-            myHeaders.append("Authorization", "Bearer " + SECRET_KEY);
-
             var formdata = new FormData();
             formdata.append("categoryName", selectedCategory);
             formdata.append("productName", formDataValue.name);
@@ -37,28 +34,21 @@ const AddProducts = ({ selectedCategory }) => {
             formdata.append("stock", formDataValue.stock);
             formdata.append("price", formDataValue.price);
 
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: formdata,
-                redirect: 'follow'
-            };
+            const response = await api.post(`/products/upload`, formdata)
+            const data = await response.data;
 
-            const response = await fetch(`${BASE_URL}/products/upload`, requestOptions);
-            const data = await response.json();
-
-            if (response.ok) {
+            if (response.status === 200) {
                 console.log("Success: ", data);
             } else {
                 console.log("Failure: ", data);
             }
+
         } catch (error) {
             console.error('Error:', error);
             // Handle error, e.g., show an error message
         }
         console.log(formdata)
         console.log(formDataValue)
-        // window.location.reload();
     };
 
     return (
