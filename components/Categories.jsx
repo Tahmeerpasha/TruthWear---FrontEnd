@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { GiConfirmed } from 'react-icons/gi';
 import { CiEdit } from 'react-icons/ci';
 import { MdDeleteOutline } from 'react-icons/md';
-import { BASE_URL, SECRET_KEY } from './config';
+import api from '@/logic/api';
 
 const Categories = ({ onSelectCategory }) => {
 
@@ -14,24 +14,9 @@ const Categories = ({ onSelectCategory }) => {
 
     const handleUpdate = async (categoryId) => {
         try {
-            const requestOptions = {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${SECRET_KEY}`,
-                },
-                body: JSON.stringify({ categoryName: newCategoryName }),
-            };
-
-            const response = await fetch(
-                `${BASE_URL}/product-categories/${categoryId}`,
-                requestOptions
-            );
-
-            if (!response.ok) {
-                throw new Error('Update not possible');
-            }
-
+            api.defaults.headers.common['Content-Type'] = 'application/json';
+            const response = await api.put(`/product-categories/${categoryId}`, JSON.stringify({ categoryName: newCategoryName }))
+            console.log(response)
             fetchCategories();
             setEditableCategory(null);
             setNewCategoryName('');
@@ -42,23 +27,7 @@ const Categories = ({ onSelectCategory }) => {
 
     const handleDelete = async (categoryId) => {
         try {
-            const requestOptions = {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${SECRET_KEY}`,
-                },
-            };
-
-            const response = await fetch(
-                `${BASE_URL}/product-categories/${categoryId}`,
-                requestOptions
-            );
-
-            if (!response.ok) {
-                throw new Error('Delete not possible');
-            }
-
+            await api.delete(`/product-categories/${categoryId}`)
             fetchCategories();
         } catch (error) {
             console.error('Error:', error);
@@ -74,24 +43,8 @@ const Categories = ({ onSelectCategory }) => {
         e.preventDefault();
 
         try {
-            const requestOptions = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${SECRET_KEY}`,
-                },
-                body: JSON.stringify({ categoryName: newCategoryName }),
-            };
-
-            const response = await fetch(
-                `${BASE_URL}/product-categories`,
-                requestOptions
-            );
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
+            const response = await api.post(`/product-categories`, JSON.stringify({ categoryName: newCategoryName }))
+            console.log(response)
             setNewCategoryName('');
             fetchCategories();
         } catch (error) {
@@ -101,24 +54,12 @@ const Categories = ({ onSelectCategory }) => {
 
     const fetchCategories = async () => {
         try {
-            const response = await fetch(
-                `${BASE_URL}/product-categories`,
-                {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `Bearer ${SECRET_KEY}`,
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
-
-            if (response.ok) {
-                const data = await response.json();
-                setCategories(data);
-                console.log(JSON.stringify(data));
-            }
+            const response = await api.get(`/product-categories`)
+            const data = await response.data;
+            setCategories(data);
+            console.log(JSON.stringify(data));
         } catch (error) {
-            console.error(error);
+            console.log(error);
         }
     };
 

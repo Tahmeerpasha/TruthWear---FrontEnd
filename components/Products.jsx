@@ -2,9 +2,8 @@
 
 // Products.js
 import React, { useEffect, useState } from 'react';
-import { SECRET_KEY } from './config';
 import { CardDefault } from './tailwind/CardDefault';
-import { BASE_URL } from './config';
+import api from '@/logic/api';
 
 const Products = ({ selectedCategory }) => {
     const [products, setProducts] = useState([]);
@@ -13,22 +12,14 @@ const Products = ({ selectedCategory }) => {
 
     const fetchProducts = async (url) => {
         try {
-            const myHeaders = new Headers();
-            myHeaders.append("Authorization", "Bearer " + SECRET_KEY);
+            setLoading(true);
+            const response = await api.get(url)
 
-            const requestOptions = {
-                method: 'GET',
-                headers: myHeaders,
-                redirect: 'follow'
-            };
-
-            const response = await fetch(url, requestOptions);
-
-            if (!response.ok) {
+            if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-
-            const data = await response.json();
+            const data = await response.data;
+            console.log(data)
             setProducts(data);
         } catch (error) {
             setError(error.message);
@@ -39,8 +30,8 @@ const Products = ({ selectedCategory }) => {
 
     useEffect(() => {
         const url = selectedCategory
-            ? `${BASE_URL}/products/category/${selectedCategory}`
-            : `${BASE_URL}/products`;
+            ? `/products/category/${selectedCategory}`
+            : `/products`;
 
         fetchProducts(url);
     }, [selectedCategory]);

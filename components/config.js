@@ -1,2 +1,2 @@
-export const SECRET_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzeWVkc2Fya2hlZWxAZ21haWwuY29tIiwiaWF0IjoxNzAxNTEwNDM0LCJleHAiOjE3MDE1NDY0MzR9.7ghRHIVW3Z9_cqG1GkHzzh04oUEpGWRkXFGn7rPIanM";
+export const SECRET_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0YWhtZWVycGFzaGFjamNAZ21haWwuY29tIiwiaWF0IjoxNzAxNzkzMzQ5LCJleHAiOjE3MDE4MjkzNDl9.uru4oXFSWOxL2l3-nIQZmL5ao7pLmKFfi5cd7gcQB9c";
 export const BASE_URL = "http://localhost:8080/api/v1";

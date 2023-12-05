@@ -8,10 +8,8 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
-        console.log("Sending token")
-        console.log(accessToken)
+        console.log(accessToken);
         config.headers.Authorization = `Bearer ${accessToken}`;
-        console.log("Sent token")
     }
     return config;
 });
@@ -24,20 +22,18 @@ api.interceptors.response.use(
         try {
             if (error.response.status === 401 && !originalRequest._retry) {
                 originalRequest._retry = true;
-                console.log("Sending refresh token")
                 const refreshToken = localStorage.getItem('refreshToken');
-                console.log("Sent refresh token")
                 const payload = {
                     "refreshToken": refreshToken
-                }
+                };
                 const response = await api.post('/auth/refresh', { payload });
-                console.log("Got new access token")
+                console.log("Got new access token");
                 const { accessToken } = response.data;
                 localStorage.setItem('accessToken', accessToken);
                 return api(originalRequest);
             }
         } catch (err) {
-            console.log(err.message)
+            console.log(err.message);
         }
         return Promise.reject(error);
     }
