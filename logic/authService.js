@@ -1,7 +1,7 @@
 import axios from 'axios';
 import api from './api';
-import { BASE_URL } from '@/logic/constants';
 
+const BASE_URL = "http://localhost:8080/api/v1";
 const login = async (email, password) => {
     try {
         const data = JSON.stringify({
