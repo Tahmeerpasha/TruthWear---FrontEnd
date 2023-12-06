@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { login } from '@/logic/authService'
 import { Button } from '@material-tailwind/react';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -29,6 +30,7 @@ const Login = () => {
                     console.log('Login successful!');
                     // Redirect to the home page or perform other actions after successful logi
                     // window.location.href = '/'
+                    useRouter
                 }).catch((err) => {
                     console.log(err)
                 });

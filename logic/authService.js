@@ -1,6 +1,6 @@
 import axios from 'axios';
 import api from './api';
-import { BASE_URL } from '@/components/config';
+import { BASE_URL } from '@/logic/constants';
 
 const login = async (email, password) => {
     try {
@@ -52,5 +52,7 @@ const register = async ({ user }) => {
         throw new Error('Failed to register');
     }
 };
+
+
 
 export { login, register };

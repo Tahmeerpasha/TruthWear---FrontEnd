@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
-import UserNavbar from '@/components/UserNavbar'
 import StoreProvider from './StoreProvider'
+import { NavbarWithMegaMenu } from '@/components/tailwind/NavbarWithMegaMenu'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <StoreProvider>
-          {/* <UserNavbar /> */}
+          <NavbarWithMegaMenu />
           {children}
         </StoreProvider>
       </body>

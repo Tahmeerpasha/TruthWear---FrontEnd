@@ -1,11 +1,11 @@
+'use client'
 import { Button } from "@material-tailwind/react";
-import Login from "./Login";
 import { useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../config";
 import { useRouter } from "next/router";
 
 const SignUp = () => {
+    const BASE_URL = 'http://localhost:8080/api/v1'
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -53,9 +53,7 @@ const SignUp = () => {
 
     return (
         <div className="flex h-screen">
-            <div className="w-1/2 mt-20 bg-gray-200">
-                <Login />
-            </div>
+
             <div className="w-1/2 bg-gray-200">
                 {/* Image or content for the picture */}
                 {/* Adjust styles to fill 40% of the screen */}

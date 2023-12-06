@@ -1,7 +1,7 @@
 // authThunks.js
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { setTokens, clearTokens } from './features/authSlice';
-import { BASE_URL } from '@/components/config';
+import { BASE_URL } from '@/logic/constants';
 
 export const refreshAccessToken = createAsyncThunk(
     'auth/refreshAccessToken',
