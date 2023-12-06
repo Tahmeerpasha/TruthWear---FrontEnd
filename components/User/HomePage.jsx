@@ -1,9 +1,10 @@
 import React from 'react'
+import { CarouselTransition } from '../tailwind/CarouselTransition'
 
-const HomePage = () => {
+const HomePage = async () => {
     return (
         <div>
-
+            <CarouselTransition />
         </div>
     )
 }

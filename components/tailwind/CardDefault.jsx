@@ -7,11 +7,10 @@ import {
     Button,
 } from "@material-tailwind/react";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
 import api from "@/logic/api";
+import Images from "../Images";
 
 export function CardDefault({ productInfo }) {
-    const imageRef = useRef(null);
 
     const handleDelete = () => {
         // Add logic to delete the product
@@ -26,39 +25,11 @@ export function CardDefault({ productInfo }) {
         }
     };
 
-    useEffect(() => {
-        let isMounted = true;
-
-        const fetchImage = async () => {
-            try {
-                api.defaults.responseType = 'blob';
-                const response = await api.get(`/products/image/${productInfo.id}`);
-                const blob = response.data;
-
-                if (isMounted) {
-                    const imageUrl = URL.createObjectURL(blob);
-                    imageRef.current.src = imageUrl;
-                }
-            } catch (error) {
-                console.log('Error fetching image', error);
-            }
-        };
-
-        fetchImage();
-
-        return () => {
-            isMounted = false;
-        };
-    }, [productInfo.id]);
 
     return (
         <Card className="mt-6 w-96 ">
             <CardHeader color="blue-gray" className="relative h-56">
-                <img
-                    ref={imageRef}
-                    alt="card-image"
-                    className=" w-full h-full rounded-md object-fill"
-                />
+                <Images productInfo={productInfo} />
             </CardHeader>
             <CardBody>
                 <Typography variant="h5" color="blue-gray" className="mb-2">
