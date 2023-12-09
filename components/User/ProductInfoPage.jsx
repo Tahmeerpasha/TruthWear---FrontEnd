@@ -20,9 +20,6 @@ const ProductInfoPage = ({ id }) => {
             <h1>{product.productName}</h1>
             <h1>{product.price}</h1>
             <h1>{product.description}</h1>
-
-
-
         </div>
     )
 }

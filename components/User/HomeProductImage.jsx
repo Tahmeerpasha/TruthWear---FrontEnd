@@ -32,10 +32,10 @@ const HomeProductImage = ({ productInfo }) => {
     }, [productInfo.id]);
     return (
         <div className=' '>
-            <img
+            <Image
                 ref={imageRef}
                 alt="card-image"
-                className="w-full h-full object-contain"
+                className="h-full w-full object-cover"
             />
         </div>
     )

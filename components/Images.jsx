@@ -31,7 +31,7 @@ const Images = ({ productInfo }) => {
         };
     }, [productInfo.id]);
     return (
-        <div className='flex w-fit items-center h-[400px] px-5 py-5 rounded-xl'>
+        <div className='flex w-fit items-center h-[400px]  rounded-xl'>
             <Image
                 ref={imageRef}
                 alt="card-image"

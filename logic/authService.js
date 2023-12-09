@@ -19,6 +19,7 @@ const login = async (email, password) => {
         };
 
         const response = await axios.request(config);
+        console.log(response);
         const { token, refreshToken, siteUser } = response.data;
 
         // Save tokens to local storage

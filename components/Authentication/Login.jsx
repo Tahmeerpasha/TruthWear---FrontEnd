@@ -30,7 +30,6 @@ const Login = () => {
                     console.log(res)
                     console.log('Login successful!');
                     // Redirect to the home page or perform other actions after successful logi
-                    // window.location.href = '/'
                     router.push('/')
                 }).catch((err) => {
                     console.log(err)

@@ -18,19 +18,32 @@ import {
     Bars3Icon,
     XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { RxAvatar } from 'react-icons/rx'
 import {
     Bars4Icon,
+    Cog6ToothIcon,
     GlobeAmericasIcon,
+    InboxArrowDownIcon,
+    LifebuoyIcon,
     NewspaperIcon,
     PhoneIcon,
+    PowerIcon,
     RectangleGroupIcon,
     SquaresPlusIcon,
     SunIcon,
     TagIcon,
+    UserCircleIcon,
     UserGroupIcon,
 } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
+
+const user = localStorage.getItem('siteUser') || null;
+console.log(user)
+// Get user Image later
+const userImage = null;
+
 
 const navListMenuItems = [
     {
@@ -97,7 +110,7 @@ function NavListMenu() {
                     <div>
                         <Typography
                             variant="h6"
-                            color="white"
+                            color="black"
                             className="flex items-center text-sm font-bold"
                         >
                             {title}
@@ -130,7 +143,7 @@ function NavListMenu() {
                             selected={isMenuOpen || isMobileMenuOpen}
                             onClick={() => setIsMobileMenuOpen((cur) => !cur)}
                         >
-                            Resources
+                            Shop
                             <ChevronDownIcon
                                 strokeWidth={2.5}
                                 className={`hidden h-3 w-3 transition-transform lg:block ${isMenuOpen ? "rotate-180" : ""
@@ -169,6 +182,15 @@ function NavList() {
             >
                 <ListItem className="flex items-center gap-2 py-2 pr-4">Home</ListItem>
             </Typography>
+            <Typography
+                as="a"
+                href="#"
+                variant="small"
+                color="white"
+                className="font-medium"
+            >
+                <ListItem className="flex items-center gap-2 py-2 pr-4">Deals</ListItem>
+            </Typography>
             <NavListMenu />
             <Typography
                 as="a"
@@ -189,12 +211,12 @@ export function NavbarWithMegaMenu() {
     const router = useRouter()
 
     const [openNav, setOpenNav] = React.useState(false);
-
     React.useEffect(() => {
         window.addEventListener(
             "resize",
             () => window.innerWidth >= 960 && setOpenNav(false),
         );
+
     }, []);
 
     const handleClick = (value) => {
@@ -202,24 +224,30 @@ export function NavbarWithMegaMenu() {
         console.log(value);
     }
 
+
     return (
-        <Navbar className="max-w-full rounded-none border-black bg-black text-white bg-opacity-100 " variant="filled">
+        <Navbar className="max-w-full sticky rounded-none border-black bg-black text-white bg-opacity-100 " variant="filled">
             <div className="flex items-center justify-between " >
-                <div className='flex p-1 justify-start'>
+                <div className='flex p-1 justify-start hover:cursor-pointer' onClick={() => { router.replace('/') }}>
                     <Image src="/logo.svg" alt="logo" width={100} height={0} className='p-2 w-[5%]' />
                     <Image src="/white-logo.jpg" alt="logo" width={1280} height={889} className='w-[16%]' />
                 </div>
                 <div className="hidden lg:block">
                     <NavList />
                 </div>
-                <div className="hidden gap-2 lg:flex">
-                    <Button variant="text" size="sm" color="white" name="Login" onClick={() => handleClick("Login")}>
-                        Log In
-                    </Button>
-                    <Button variant="gradient" size="sm" name="SignUp" onClick={() => handleClick("sign-up")}>
-                        Sign Up
-                    </Button>
-                </div>
+                {user !== null ?
+                    <ProfileMenu />
+                    :
+                    <div className="hidden gap-2 lg:flex">
+                        <Button variant="text" size="sm" color="white" name="Login" onClick={() => handleClick("Login")}>
+                            Log In
+                        </Button>
+                        <Button variant="gradient" size="sm" name="SignUp" onClick={() => handleClick("sign-up")}>
+                            Sign Up
+                        </Button>
+                    </div>
+                }
+
                 <IconButton
                     variant="text"
                     color="white"
@@ -245,5 +273,89 @@ export function NavbarWithMegaMenu() {
                 </div>
             </Collapse>
         </Navbar>
+    );
+}
+
+const profileMenuItems = [
+    {
+        label: "My Profile",
+        icon: UserCircleIcon,
+    },
+    {
+        label: "Edit Profile",
+        icon: Cog6ToothIcon,
+    },
+    {
+        label: "Inbox",
+        icon: InboxArrowDownIcon,
+    },
+    {
+        label: "Help",
+        icon: LifebuoyIcon,
+    },
+    {
+        label: "Sign Out",
+        icon: PowerIcon,
+    },
+];
+function ProfileMenu() {
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+    const closeMenu = () => setIsMenuOpen(false);
+
+    return (
+        <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
+            <MenuHandler>
+                <Button
+                    variant="text"
+                    color="blue-gray"
+                    className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+                >
+                    {/* {user !== null ? <Avatar
+                        variant="circular"
+                        size="sm"
+                        alt="tania andrew"
+                        className="border border-gray-900 p-0.5"
+                        // If user does not have an image then use the default image
+                        src={userImage}
+                    /> : <RxAvatar />} */}
+                    <RxAvatar color="white" size={40} />
+
+                    <ChevronDownIcon
+                        strokeWidth={2.5}
+                        className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
+                            }`}
+                    />
+                </Button>
+            </MenuHandler>
+            <MenuList className="p-1">
+                {profileMenuItems.map(({ label, icon }, key) => {
+                    const isLastItem = key === profileMenuItems.length - 1;
+                    return (
+                        <MenuItem
+                            key={label}
+                            onClick={closeMenu}
+                            className={`flex items-center gap-2 rounded ${isLastItem
+                                ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                                : ""
+                                }`}
+                        >
+                            {React.createElement(icon, {
+                                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                                strokeWidth: 2,
+                            })}
+                            <Typography
+                                as="span"
+                                variant="small"
+                                className="font-normal"
+                                color={isLastItem ? "red" : "inherit"}
+                            >
+                                {label}
+                            </Typography>
+                        </MenuItem>
+                    );
+                })}
+            </MenuList>
+        </Menu>
     );
 }

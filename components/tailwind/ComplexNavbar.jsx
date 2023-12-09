@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import {
     Navbar,
@@ -85,8 +86,8 @@ function ProfileMenu() {
                             key={label}
                             onClick={closeMenu}
                             className={`flex items-center gap-2 rounded ${isLastItem
-                                    ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                                    : ""
+                                ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                                : ""
                                 }`}
                         >
                             {React.createElement(icon, {
