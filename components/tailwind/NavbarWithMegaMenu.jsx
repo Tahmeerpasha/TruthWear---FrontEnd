@@ -1,5 +1,5 @@
 'use client'
-import React from "react";
+import React, { useState } from "react";
 import {
     Navbar,
     Collapse,
@@ -35,11 +35,18 @@ import {
     UserCircleIcon,
     UserGroupIcon,
 } from "@heroicons/react/24/solid";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { FaRegHeart } from "react-icons/fa";
+import { FiShoppingCart } from "react-icons/fi";
 
+const getUser = () => {
+    if (typeof window !== "undefined") {
+        return JSON.parse(localStorage.getItem('siteUser'));
+    }
+    return null;
+}
+const user = getUser();
 
-const user = localStorage.getItem('siteUser') || null;
 console.log(user)
 // Get user Image later
 const userImage = null;
@@ -172,7 +179,7 @@ function NavListMenu() {
 
 function NavList() {
     return (
-        <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
+        <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:items-center lg:p-1">
             <Typography
                 as="a"
                 href="#"
@@ -209,6 +216,15 @@ function NavList() {
 
 export function NavbarWithMegaMenu() {
     const router = useRouter()
+    const [wishlistCount, setWishlistCount] = useState(0);
+    const [cartCount, setCartCount] = useState(0);
+
+    const addToCart = () => {
+        setCartCount(cartCount + 1);
+    }
+    const addToWishlist = () => {
+        setWishlistCount(wishlistCount + 1);
+    }
 
     const [openNav, setOpenNav] = React.useState(false);
     React.useEffect(() => {
@@ -226,17 +242,34 @@ export function NavbarWithMegaMenu() {
 
 
     return (
-        <Navbar className="max-w-full sticky rounded-none border-black bg-black text-white bg-opacity-100 " variant="filled">
-            <div className="flex items-center justify-between " >
-                <div className='flex p-1 justify-start hover:cursor-pointer' onClick={() => { router.replace('/') }}>
-                    <Image src="/logo.svg" alt="logo" width={100} height={0} className='p-2 w-[5%]' />
-                    <Image src="/white-logo.jpg" alt="logo" width={1280} height={889} className='w-[16%]' />
-                </div>
+        <Navbar className="max-w-full sticky rounded-none border-black bg-black text-white bg-opacity-100 " variant="gradient">
+            <div className="flex items-center justify-between" >
+
+                {/* <div className='flex w-[30%] p-1 hover:cursor-pointer' onClick={() => { router.replace('/') }}>
+                    <img src="/logo.svg" alt="logo" className='p-2 w-[5%]' />
+                    <img src="/white-logo.jpg" alt="logo" className='w-[6%]' />
+                </div> */}
+
                 <div className="hidden lg:block">
                     <NavList />
                 </div>
+
                 {user !== null ?
-                    <ProfileMenu />
+                    (
+                        <ul className="flex justify-between items-center">
+                            <li className='p-2 relative px-5 text-xs font- flex flex-col items-center justify-center' onClick={addToWishlist}>
+                                <FaRegHeart size={30} color="white" className='p-1' />
+                                {wishlistCount > 0 && <span className='absolute top-2 left-[40px] bg-red-500 text-white rounded-full px-2'>{wishlistCount}</span>}
+                            </li>
+                            <li className='p-2 px-5 text-xs font- flex flex-col items-center justify-center' onClick={addToCart}>
+                                <FiShoppingCart size={30} color="white" />
+                                {cartCount > 0 && <span className='absolute top-2 right-[58px] bg-red-500 text-white rounded-full px-2'>{cartCount}</span>}
+                            </li>
+                            <li>
+                                <ProfileMenu className="px-5" />
+                            </li>
+                        </ul>
+                    )
                     :
                     <div className="hidden gap-2 lg:flex">
                         <Button variant="text" size="sm" color="white" name="Login" onClick={() => handleClick("Login")}>

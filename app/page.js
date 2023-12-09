@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react"
 import { CarouselTransition } from "@/components/tailwind/CarouselTransition";
 import HorizontalCategories from "@/components/User/HorizontalCategories";
-import { HomeProductCard } from "@/components/tailwind/HomeProductCard";
 import api from "@/logic/api";
 import { EcommerceCard } from "@/components/tailwind/EcommerceCard";
 
@@ -66,7 +65,6 @@ const Page = () => {
           <p className='font-bold text-3xl mt-5 p-5'>Shop By Category</p>
           <HorizontalCategories onSelectCategory={handleCategorySelect} onClearFilter={onClearFilter} categories={categories} />
           <EcommerceCard products={products} />
-          {/* <HomeProductCard products={products} /> */}
         </div>
       </div>
     </>
