@@ -1,6 +1,6 @@
 'use client'
-import AddProducts from '@/components/AddProducts'
-import Categories from '@/components/Categories'
+import AddProducts from '@/components/Admin/AddProducts'
+import Categories from '@/components/Admin/Categories'
 import React, { useState } from 'react'
 
 const Page = () => {

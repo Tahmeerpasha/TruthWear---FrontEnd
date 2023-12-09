@@ -6,7 +6,7 @@ import { MdDeleteOutline } from 'react-icons/md';
 import api from '@/logic/api';
 
 const Categories = ({ onSelectCategory }) => {
-
+    api.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8';
     const [categories, setCategories] = useState([]);
     const [newCategoryName, setNewCategoryName] = useState('');
     const [editableCategory, setEditableCategory] = useState(null);
@@ -14,9 +14,8 @@ const Categories = ({ onSelectCategory }) => {
 
     const handleUpdate = async (categoryId) => {
         try {
-            api.defaults.headers.common['Content-Type'] = 'application/json';
-            const response = await api.put(`/product-categories/${categoryId}`, JSON.stringify({ categoryName: newCategoryName }))
-            console.log(response)
+            const response = await api.put(`/product-categories/${categoryId}`, JSON.stringify({ categoryName: newCategoryName }));
+            console.log(response);
             fetchCategories();
             setEditableCategory(null);
             setNewCategoryName('');

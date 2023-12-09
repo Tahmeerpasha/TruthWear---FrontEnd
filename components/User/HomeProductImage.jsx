@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import api from "@/logic/api";
 import Image from 'next/image';
 
-const Images = ({ productInfo }) => {
+const HomeProductImage = ({ productInfo }) => {
     const imageRef = useRef(null);
 
     useEffect(() => {
@@ -31,17 +31,15 @@ const Images = ({ productInfo }) => {
         };
     }, [productInfo.id]);
     return (
-        <div className='flex w-fit items-center h-[400px] px-5 py-5 rounded-xl'>
-            <Image
+        <div className=' '>
+            <img
                 ref={imageRef}
                 alt="card-image"
-                className="w-fit h-[500px]  object-cover"
-                width={500}
-                height={500}
+                className="w-full h-full object-contain"
             />
         </div>
     )
 
 }
 
-export default Images
+export default HomeProductImage

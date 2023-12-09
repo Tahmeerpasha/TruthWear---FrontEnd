@@ -6,6 +6,7 @@ import { Button } from '@material-tailwind/react';
 import { useRouter } from 'next/navigation';
 
 const Login = () => {
+    const router = useRouter()
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -30,7 +31,7 @@ const Login = () => {
                     console.log('Login successful!');
                     // Redirect to the home page or perform other actions after successful logi
                     // window.location.href = '/'
-                    useRouter
+                    router.push('/')
                 }).catch((err) => {
                     console.log(err)
                 });

@@ -1,14 +1,14 @@
 'use client'
 import api from "@/logic/api";
 import { Carousel, Spinner } from "@material-tailwind/react";
-import Image from "next/image";
 import { React, useEffect, useState } from "react";
-import { CardDefault } from "./CardDefault";
 import Images from "../Images";
+import { useRouter } from "next/navigation";
 
 export function CarouselTransition() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const router = useRouter();
     const fetchProducts = async (url) => {
         try {
             setLoading(true);
@@ -36,12 +36,22 @@ export function CarouselTransition() {
         return <div className="text-center"><Spinner /></div>;
     }
 
+    const handleClick = (id) => {
+        console.log(id)
+        router.push(`/product-info/${id}`)
+    }
+
     return (
-        <Carousel transition={{ duration: 2 }} className="rounded-xl mt-3" loop autoplay>
-            {products.map(product => {
+        <Carousel transition={{ duration: 2 }} className="rounded-xl overflow-clip w-fit bg-black mx-6 mt-4 py-3" loop autoplay>
+            {products?.map(product => {
                 return (
-                    <div className="max-h-[500px] object-cover" key={product.id}>
-                        <Images productInfo={product} key={product.id} />
+                    <div className="max-h-[400px] flex items-center justify-between" key={product.id} onClick={() => handleClick(product.id)}>
+                        <div className=" text-white">
+                            <h1>Hello</h1>
+                        </div>
+                        <div className="">
+                            <Images productInfo={product} key={product.id} />
+                        </div>
                     </div>
                 )
             })

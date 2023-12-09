@@ -203,10 +203,10 @@ export function NavbarWithMegaMenu() {
     }
 
     return (
-        <Navbar className="max-w-full  bg-black text-white bg-opacity-100 " variant="filled">
+        <Navbar className="max-w-full rounded-none border-black bg-black text-white bg-opacity-100 " variant="filled">
             <div className="flex items-center justify-between " >
                 <div className='flex p-1 justify-start'>
-                    <Image src="/logo.svg" alt="logo" width={100} height={0} className='p-2' />
+                    <Image src="/logo.svg" alt="logo" width={100} height={0} className='p-2 w-[5%]' />
                     <Image src="/white-logo.jpg" alt="logo" width={1280} height={889} className='w-[16%]' />
                 </div>
                 <div className="hidden lg:block">

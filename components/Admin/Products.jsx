@@ -1,9 +1,10 @@
 // config.js
-
+'use client'
 // Products.js
 import React, { useEffect, useState } from 'react';
-import { CardDefault } from './tailwind/CardDefault';
+import { CardDefault } from '../tailwind/CardDefault';
 import api from '@/logic/api';
+import { Spinner } from '@material-tailwind/react';
 
 const Products = ({ selectedCategory }) => {
     const [products, setProducts] = useState([]);
@@ -36,8 +37,9 @@ const Products = ({ selectedCategory }) => {
         fetchProducts(url);
     }, [selectedCategory]);
 
+
     if (loading) {
-        return <div>Loading...</div>;
+        return <div><Spinner /></div>;
     }
 
     if (error) {
@@ -46,7 +48,7 @@ const Products = ({ selectedCategory }) => {
 
     return (
         <div className='w-full h-fit gap-2 grid grid-cols-3'>
-            {products.map(product => (
+            {products?.map(product => (
                 <CardDefault productInfo={product} key={product.id} />
             ))}
         </div>
