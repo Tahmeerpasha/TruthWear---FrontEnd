@@ -245,10 +245,10 @@ export function NavbarWithMegaMenu() {
         <Navbar className="max-w-full sticky rounded-none border-black bg-black text-white bg-opacity-100 " variant="gradient">
             <div className="flex items-center justify-between" >
 
-                {/* <div className='flex w-[30%] p-1 hover:cursor-pointer' onClick={() => { router.replace('/') }}>
-                    <img src="/logo.svg" alt="logo" className='p-2 w-[5%]' />
-                    <img src="/white-logo.jpg" alt="logo" className='w-[6%]' />
-                </div> */}
+                <div className='flex w-[30%] p-1 hover:cursor-pointer' onClick={() => { router.replace('/') }}>
+                    <img src="/logo.svg" alt="logo" className='p-2 w-[15%]' />
+                    <img src="/white-logo.jpg" alt="logo" className='w-[25%]' />
+                </div>
 
                 <div className="hidden lg:block">
                     <NavList />
@@ -257,13 +257,13 @@ export function NavbarWithMegaMenu() {
                 {user !== null ?
                     (
                         <ul className="flex justify-between items-center">
-                            <li className='p-2 relative px-5 text-xs font- flex flex-col items-center justify-center' onClick={addToWishlist}>
+                            <li className='p-2 relative px-5 hover:cursor-pointer text-xs font- flex flex-col items-center justify-center' onClick={addToWishlist}>
                                 <FaRegHeart size={30} color="white" className='p-1' />
                                 {wishlistCount > 0 && <span className='absolute top-2 left-[40px] bg-red-500 text-white rounded-full px-2'>{wishlistCount}</span>}
                             </li>
-                            <li className='p-2 px-5 text-xs font- flex flex-col items-center justify-center' onClick={addToCart}>
+                            <li className='p-2 px-5 text-xs hover:cursor-pointer flex flex-col items-center justify-center' onClick={addToCart}>
                                 <FiShoppingCart size={30} color="white" />
-                                {cartCount > 0 && <span className='absolute top-2 right-[58px] bg-red-500 text-white rounded-full px-2'>{cartCount}</span>}
+                                {cartCount > 0 && <span className='absolute top-5 right-[100px] bg-red-500 text-white rounded-full px-2'>{cartCount}</span>}
                             </li>
                             <li>
                                 <ProfileMenu className="px-5" />
