@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import api from "@/logic/api";
 import Image from 'next/image';
 
-const HomeProductImage = ({ productInfo }) => {
+const HomeProductImage = ({ productInfo, style }) => {
     const imageRef = useRef(null);
 
     useEffect(() => {
@@ -35,7 +35,7 @@ const HomeProductImage = ({ productInfo }) => {
             <Image
                 ref={imageRef}
                 alt="card-image"
-                className="h-full w-full object-cover"
+                className={" object-cover " + style}
             />
         </div>
     )

@@ -1,6 +1,7 @@
 'use client'
 import AddProducts from '@/components/Admin/AddProducts'
 import Categories from '@/components/Admin/Categories'
+import api from '@/logic/api'
 import React, { useState } from 'react'
 
 const Page = () => {

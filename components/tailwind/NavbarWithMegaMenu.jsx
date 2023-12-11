@@ -38,6 +38,7 @@ import {
 import { useRouter } from "next/navigation";
 import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
 const getUser = () => {
     if (typeof window !== "undefined") {
@@ -46,10 +47,9 @@ const getUser = () => {
     return null;
 }
 const user = getUser();
-
 console.log(user)
 // Get user Image later
-const userImage = null;
+// const userImage = null;
 
 
 const navListMenuItems = [
@@ -178,6 +178,8 @@ function NavListMenu() {
 }
 
 function NavList() {
+    const router = useRouter()
+
     return (
         <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:items-center lg:p-1">
             <Typography
@@ -186,6 +188,7 @@ function NavList() {
                 variant="small"
                 color="white"
                 className="font-medium"
+                onClick={() => router.push('/')}
             >
                 <ListItem className="flex items-center gap-2 py-2 pr-4">Home</ListItem>
             </Typography>
@@ -216,6 +219,7 @@ function NavList() {
 
 export function NavbarWithMegaMenu() {
     const router = useRouter()
+    const { loading, cartItems } = useSelector((state) => state.cart)
     const [wishlistCount, setWishlistCount] = useState(0);
     const [cartCount, setCartCount] = useState(0);
 
@@ -262,8 +266,10 @@ export function NavbarWithMegaMenu() {
                                 {wishlistCount > 0 && <span className='absolute top-2 left-[40px] bg-red-500 text-white rounded-full px-2'>{wishlistCount}</span>}
                             </li>
                             <li className='p-2 px-5 text-xs hover:cursor-pointer flex flex-col items-center justify-center' onClick={addToCart}>
-                                <FiShoppingCart size={30} color="white" />
-                                {cartCount > 0 && <span className='absolute top-5 right-[100px] bg-red-500 text-white rounded-full px-2'>{cartCount}</span>}
+                                <FiShoppingCart size={30} color="white" onClick={() => router.push('/cart')} />
+                                {<span className='absolute top-5 right-[100px] bg-red-500 text-white rounded-full px-2'>
+                                    {loading ? '' : cartItems.length}
+                                </span>}
                             </li>
                             <li>
                                 <ProfileMenu className="px-5" />

@@ -4,6 +4,8 @@ import { CarouselTransition } from "@/components/tailwind/CarouselTransition";
 import HorizontalCategories from "@/components/User/HorizontalCategories";
 import api from "@/logic/api";
 import { EcommerceCard } from "@/components/tailwind/EcommerceCard";
+import { useDispatch } from "react-redux";
+import { hideLoading } from "@/lib/features/cartSlice";
 
 const Page = () => {
 
@@ -11,11 +13,16 @@ const Page = () => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("")
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
   };
 
   api.defaults.responseType = "json";
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(hideLoading())
+  }, [dispatch])
 
   const fetchCategories = async () => {
     try {
