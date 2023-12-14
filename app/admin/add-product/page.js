@@ -2,15 +2,16 @@
 import AddProducts from '@/components/Admin/AddProducts'
 import Categories from '@/components/Admin/Categories'
 import api from '@/logic/api'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Page = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    const [error, setError] = useState(null);
     api.defaults.responseType = "json";
+    products,error,loading
 
     const fetchCategories = async () => {
         try {
@@ -58,7 +59,7 @@ const Page = () => {
     };
     return (
         <div className='flex'>
-            <Categories onSelectCategory={handleCategorySelect} onClearFilter={onClearFilter} categories={categories} fetchCategories={fetchCategories} />
+            <Categories fetchProducts={fetchProducts} onSelectCategory={handleCategorySelect} onClearFilter={onClearFilter} categories={categories} fetchCategories={fetchCategories} />
             <AddProducts selectedCategory={selectedCategory} />
         </div>
     )

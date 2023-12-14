@@ -64,6 +64,7 @@ const Page = () => {
     fetchCategories();
   }, [selectedCategory])
 
+
   return (
     <>
       <div className=''>

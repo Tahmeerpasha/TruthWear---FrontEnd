@@ -55,6 +55,8 @@ const Page = () => {
         fetchProducts(url);
     }, [selectedCategory]);
 
+
+
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);
     };
@@ -69,7 +71,7 @@ const Page = () => {
 
     return (
         <div className='flex'>
-            <Categories categories={categories} fetchCategories={fetchCategories} onClearFilter={onClearFilter} onSelectCategory={handleCategorySelect} />
+            <Categories fetchProducts={fetchProducts} categories={categories} fetchCategories={fetchCategories} onClearFilter={onClearFilter} onSelectCategory={handleCategorySelect} />
             <Products products={products} />
         </div>
     )
