@@ -6,16 +6,6 @@ import { useSelector } from 'react-redux';
 
 const Cart = () => {
     const { cartItems } = useSelector((state) => state.cart);
-    // const dispatch = useDispatch();
-
-    // const fetchCartItems = async () => {
-    //     dispatch(getCartItemsAsync());
-    // };
-
-    // useEffect(() => {
-    //     fetchCartItems();
-    // }, [dispatch]);
-
     return (
         <div>
             {cartItems.length <= 0 ? (

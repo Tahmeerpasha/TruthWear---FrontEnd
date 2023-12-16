@@ -6,6 +6,7 @@ import api from "@/logic/api";
 import { EcommerceCard } from "@/components/tailwind/EcommerceCard";
 import { useDispatch } from "react-redux";
 import { hideLoading } from "@/lib/features/cartSlice";
+import { Spinner } from "@material-tailwind/react";
 
 const Page = () => {
 
@@ -67,6 +68,8 @@ const Page = () => {
 
   return (
     <>
+      {loading && <Spinner />}
+      {error && <p>{error}</p>}
       <div className=''>
         <CarouselTransition />
         <div className="flex flex-col  items-center">
