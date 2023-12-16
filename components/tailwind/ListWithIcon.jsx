@@ -7,7 +7,8 @@ import {
 } from "@material-tailwind/react";
 import HomeProductImage from "../User/HomeProductImage";
 import { useDispatch } from "react-redux";
-import { addToCart, removeFromCart } from "@/lib/features/cartSlice";
+import { addToCart, addToCartAsync, removeFromCart } from "@/lib/features/cartSlice";
+import { addToCartApi } from "@/logic/utility";
 
 
 export function ListWithIcon({ item }) {
@@ -16,8 +17,10 @@ export function ListWithIcon({ item }) {
         if (qty <= 0) {
             dispatch(removeFromCart(product))
         } else {
-            const prod = { product, qty: qty }
-            dispatch(addToCart(prod))
+
+            dispatch(addToCartAsync({ product, qty }))
+            // const prod = { product, qty: qty }
+            // dispatch(addToCart(prod))
         }
     }
     const product = item.product
@@ -37,11 +40,17 @@ export function ListWithIcon({ item }) {
                     <ListItemSuffix className="flex flex-col  items-center">
                         Quantity
                         <div className='flex justify-between items-center w-full p-0'>
-                            <Button size="sm" onClick={() => { handleAddToCart(product, quantity - 1) }}>
+                            <Button size="sm" onClick={() => {
+                                handleAddToCart(product, quantity - 1)
+                                addToCartApi(product, quantity - 1)
+                            }}>
                                 -
                             </Button>
                             <span className="p-2">{quantity}</span>
-                            <Button size="sm" onClick={() => { handleAddToCart(product, quantity + 1) }}>
+                            <Button size="sm" onClick={() => {
+                                handleAddToCart(product, quantity + 1)
+                                addToCartApi(product, quantity + 1)
+                            }}>
                                 +
                             </Button>
                         </div>

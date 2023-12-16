@@ -2,10 +2,11 @@
 import { Button } from "@material-tailwind/react";
 import { useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
     const BASE_URL = 'http://localhost:8080/api/v1'
+    const router = useRouter()
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -35,7 +36,7 @@ const SignUp = () => {
             localStorage.setItem("refreshToken", refreshToken);
             localStorage.setItem("siteUser", JSON.stringify(siteUser));
             console.log("Response:", token, refreshToken, siteUser);
-            useRouter.push("/admin/products");
+            router.push("/login");
         } catch (error) {
             console.error("Sign up failed:", error.message);
             // Handle sign up failure, e.g., show an error message

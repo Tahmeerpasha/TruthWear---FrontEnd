@@ -4,11 +4,12 @@ import axios from 'axios';
 const api = axios.create({
     baseURL: 'http://localhost:8080/api/v1',
 });
-
+api.defaults.headers.common['Content-Type'] = "application/json"
+api.defaults.headers.common['Accept'] = "application/json"
 api.interceptors.request.use((config) => {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
-        console.log(accessToken);
+        // console.log(accessToken);
         config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
