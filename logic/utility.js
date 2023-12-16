@@ -26,7 +26,7 @@ export const addToCartApi = async (product, qty) => {
                 console.log("CartItems:", cartItems);
 
                 // Make the POST request to 'shopping-cart-items'
-                const addToCartResponse = await api.post('shopping-cart-items', cartItems);
+                const addToCartResponse = await api.post('shopping-cart-items', cartItems, { responseType: 'blob' });
 
                 // Log the response for debugging
                 console.log("Add to Cart Response:", addToCartResponse);
@@ -40,5 +40,31 @@ export const addToCartApi = async (product, qty) => {
         }
     } catch (error) {
         console.error("An error occurred:", error);
+    }
+};
+
+export const getCartItemsApi = async () => {
+    try {
+        const user = JSON.parse(localStorage.getItem('siteUser'));
+
+        // Fetch user's cart
+        const userCartResponse = await api.get(`shopping-carts/user/${user.id}`, { responseType: 'blob' });
+        const cartId = JSON.parse(await userCartResponse.data.text())?.id;
+
+        if (cartId !== undefined) {
+            // Fetch the cart
+            const cartResponse = await api.get(`shopping-carts/${cartId}`, { responseType: 'blob' });
+            const cart = await JSON.parse(await cartResponse.data.text());
+            if (cart !== undefined) {
+                const getCartItems = await api.get(`shopping-cart-items/${cart.id}`);
+                return getCartItems.data
+            } else {
+                console.log("Cart is undefined");
+            }
+        } else {
+            console.log("Cart ID is undefined");
+        }
+    } catch (err) {
+        console.error("An error occurred:", err);
     }
 };
