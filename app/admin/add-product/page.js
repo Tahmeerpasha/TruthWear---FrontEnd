@@ -1,7 +1,8 @@
 'use client'
 import AddProducts from '@/components/Admin/AddProducts'
 import Categories from '@/components/Admin/Categories'
-import React, { useState } from 'react'
+import api from '@/logic/api'
+import React, { useEffect, useState } from 'react'
 
 const Page = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
