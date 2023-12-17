@@ -4,10 +4,10 @@ import {
     CardBody,
     CardFooter,
     Typography,
-    Button,
 } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
 import HomeProductImage from "../User/HomeProductImage";
+import AddToCartButton from "../User/AddToCartButton";
 
 export function EcommerceCard({ products }) {
     const router = useRouter();
@@ -16,6 +16,8 @@ export function EcommerceCard({ products }) {
         console.log(id)
         router.push(`/product-info/${id}`);
     }
+
+
     return (
         <div className="grid grid-cols-3 gap-16 p-10">
             {
@@ -25,7 +27,7 @@ export function EcommerceCard({ products }) {
                             <div className="hover:cursor-pointer" onClick={() => handleClick(product.id)}>
 
                                 <CardHeader shadow={false} floated={false} className="h-64">
-                                    <HomeProductImage productInfo={product} />
+                                    <HomeProductImage style={'h-full w-full'} productInfo={product} />
                                 </CardHeader>
                                 <CardBody>
                                     <div className="mb-2 flex items-center justify-between">
@@ -48,13 +50,7 @@ export function EcommerceCard({ products }) {
                             </div>
 
                             <CardFooter className="pt-0">
-                                <Button
-                                    ripple={false}
-                                    fullWidth={true}
-                                    className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-                                >
-                                    Add to Cart
-                                </Button>
+                                <AddToCartButton product={product} />
                             </CardFooter>
                         </Card>)
                 })

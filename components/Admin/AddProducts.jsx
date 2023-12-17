@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import { VscTriangleRight } from 'react-icons/vsc';
 import { Button } from '@material-tailwind/react';
 import api from '@/logic/api';
+import { useRouter } from 'next/navigation';
 
 const AddProducts = ({ selectedCategory }) => {
+    const router = useRouter()
+    console.log(selectedCategory);
     const [formDataValue, setFormDataValue] = useState({
         name: '',
         description: '',
@@ -24,21 +27,22 @@ const AddProducts = ({ selectedCategory }) => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-
+        console.log(selectedCategory + " This is the category")
+        api.defaults.headers.common['Content-Type'] = 'multipart/form-data';
         try {
             var formdata = new FormData();
-            formdata.append("categoryName", selectedCategory);
             formdata.append("productName", formDataValue.name);
+            formdata.append("categoryName", selectedCategory);
             formdata.append("productDescription", formDataValue.description);
             formdata.append("image", formDataValue.image);
             formdata.append("stock", formDataValue.stock);
             formdata.append("price", formDataValue.price);
-
             const response = await api.post(`/products/upload`, formdata)
             const data = await response.data;
 
             if (response.status === 200) {
                 console.log("Success: ", data);
+                router.push('/admin/products')
             } else {
                 console.log("Failure: ", data);
             }
@@ -47,7 +51,6 @@ const AddProducts = ({ selectedCategory }) => {
             console.error('Error:', error);
             // Handle error, e.g., show an error message
         }
-        console.log(formdata)
         console.log(formDataValue)
     };
 

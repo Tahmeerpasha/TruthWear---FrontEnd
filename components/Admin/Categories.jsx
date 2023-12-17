@@ -4,9 +4,8 @@ import { GiConfirmed } from 'react-icons/gi';
 import { CiEdit } from 'react-icons/ci';
 import { MdDeleteOutline } from 'react-icons/md';
 import api from '@/logic/api';
-import { Button } from '@material-tailwind/react';
 
-const Categories = ({ onSelectCategory, onClearFilter, categories, fetchCategories }) => {
+const Categories = ({ fetchProducts, onSelectCategory, onClearFilter, categories, fetchCategories }) => {
     console.log(categories);
     api.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8';
     const [newCategoryName, setNewCategoryName] = useState('');
@@ -29,6 +28,7 @@ const Categories = ({ onSelectCategory, onClearFilter, categories, fetchCategori
         try {
             await api.delete(`/product-categories/${categoryId}`)
             fetchCategories();
+            fetchProducts();
         } catch (error) {
             console.error('Error:', error);
         }

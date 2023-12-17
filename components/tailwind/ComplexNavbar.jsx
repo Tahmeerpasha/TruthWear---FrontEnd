@@ -208,7 +208,7 @@ function NavList() {
             <NavListMenu />
             {navListItems.map(({ label, icon }, key) => (
                 <Typography
-                    key={label}
+                    key={key}
                     as="a"
                     href="#"
                     variant="small"

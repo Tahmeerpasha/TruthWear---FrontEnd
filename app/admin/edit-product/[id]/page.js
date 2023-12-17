@@ -2,6 +2,7 @@
 // Importing necessary dependencies and components
 import api from '@/logic/api';
 import { Button } from '@material-tailwind/react';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { VscTriangleRight } from 'react-icons/vsc';
 
@@ -15,7 +16,7 @@ const Page = ({ params }) => {
         price: 0,
         image: null,
     });
-
+    const router = useRouter()
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -23,6 +24,7 @@ const Page = ({ params }) => {
     // Function to handle form submission
     const handleFormSubmit = (e) => {
         e.preventDefault();
+        api.defaults.headers.common['Content-Type'] = 'multipart/form-data';
         try {
             // Creating a FormData object with a distinct name
             const formData = new FormData();
@@ -35,7 +37,7 @@ const Page = ({ params }) => {
             if (formDataState.stock != 0) formData.append('stock', formDataState.stock || 0);
             if (formDataState.price != 0) formData.append('price', formDataState.price);
             console.log(formDataState);
-            api.put(`/products/${params.id}`, formData).then((res) => console.log(res));
+            api.put(`/products/${params.id}`, formData).then((res) => console.log(res)).then(() => router.push('/admin/products'));
         } catch (err) {
             console.log(err)
         }

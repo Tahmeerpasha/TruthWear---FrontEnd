@@ -44,6 +44,7 @@ export function CarouselTransition() {
 
     return (
         <Carousel transition={{ duration: 2 }} className="rounded-xl overflow-hidden w-fit bg-black mx-10 mt-4 py-3" loop autoplay>
+            {error && <p>{error}</p>}
             {products?.map(product => {
                 return (
                     <div className="max-h-[400px] flex  justify-between" key={product.id} onClick={() => handleClick(product.id)}>
