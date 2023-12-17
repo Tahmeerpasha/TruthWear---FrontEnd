@@ -24,7 +24,7 @@ const PaymentForm = () => {
                 type="text"
                 className="w-full border border-gray-300 rounded-md px-3 py-2"
                 placeholder="Enter name on card"
-                value={cardInfo.name}
+                value={cardInfo?.name}
                 onChange={(e) => dispatch({ type: 'SET_NAME', payload: e.target.value })}
               />
             </div>
@@ -34,7 +34,7 @@ const PaymentForm = () => {
                 type="text"
                 className="w-full border border-gray-300 rounded-md px-3 py-2"
                 placeholder="XXXX-XXXX-XXXX-XXXX"
-                value={cardInfo.cardNumber}
+                value={cardInfo?.cardNumber}
                 onChange={(e) => dispatch({ type: 'SET_CARD_NUMBER', payload: e.target.value })}
               />
             </div>
@@ -45,7 +45,7 @@ const PaymentForm = () => {
                   type="text"
                   className="w-full border border-gray-300 rounded-md px-3 py-2"
                   placeholder="MM/YYYY"
-                  value={cardInfo.expiry}
+                  value={cardInfo?.expiry}
                   onChange={(e) => dispatch({ type: 'SET_EXPIRY', payload: e.target.value })}
                 />
               </div>
@@ -55,7 +55,7 @@ const PaymentForm = () => {
                   type="text"
                   className="w-full border border-gray-300 rounded-md px-3 py-2"
                   placeholder="CVV"
-                  value={cardInfo.cvv}
+                  value={cardInfo?.cvv}
                   onChange={(e) => dispatch({ type: 'SET_CVV', payload: e.target.value })}
                 />
               </div>
@@ -63,7 +63,7 @@ const PaymentForm = () => {
             <div className="mb-4">
               <input
                 type="checkbox"
-                checked={cardInfo.saveInfo}
+                checked={cardInfo?.saveInfo}
                 onChange={() => dispatch({ type: 'TOGGLE_SAVE_INFO' })}
               />
               <label>Save card information for future use</label>
@@ -78,7 +78,7 @@ const PaymentForm = () => {
         </div>
       </div>
 
-      
+
       <div className="w-2/5 bg-gray-200 p-8">
         <div
           className={`order-summary-section ${isSummaryCollapsed ? 'collapsed' : ''}`}
