@@ -3,6 +3,7 @@ import { Button } from "@material-tailwind/react";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const SignUp = () => {
     const BASE_URL = 'http://localhost:8080/api/v1'
@@ -55,8 +56,9 @@ const SignUp = () => {
     return (
         <div className="flex h-screen">
 
-            <div className="w-1/2 bg-gray-200">
+            <div className="w-1/2 bg-gray-200 flex justify-center items-center h-full">
                 {/* Image or content for the picture */}
+                <Image src={'/Pray-On-It.svg'} alt="quotes" width={100} height={100} className="w-[500px]" />
                 {/* Adjust styles to fill 40% of the screen */}
             </div>
             <div className="w-120 px-20 flex flex-col justify-center items-start">
@@ -138,6 +140,21 @@ const SignUp = () => {
                             onChange={handleInputChange}
                         />
                     </div>
+                    <div className="mb-4">
+                        <label htmlFor="password" className="block mb-0">
+                            Confirm Password <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                            id="password"
+                            name="password"
+                            required
+                            className="w-full p-1 border border-gray-300 rounded-lg"
+                            type="password"
+                            placeholder="Enter your password"
+                            value={formData.password}
+                            onChange={handleInputChange}
+                        />
+                    </div>
                     <div className="">
                         <Button type="submit" className="w-full">
                             Create account
@@ -151,12 +168,12 @@ const SignUp = () => {
                 {/* Adjust styles for the Google icon */}
                 {/* </div> */}
                 {/* </div> */}
-                <p className="text-center text-gray-600">
+                {/* <p className="text-center text-gray-600">
                     Already have an account ?{" "}
                     <a href="/signin" className="text-blue-500">
                         Sign In
                     </a>
-                </p>
+                </p> */}
             </div>
         </div>
     );

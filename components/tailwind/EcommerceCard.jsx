@@ -8,15 +8,17 @@ import {
 import { useRouter } from "next/navigation";
 import HomeProductImage from "../User/HomeProductImage";
 import AddToCartButton from "../User/AddToCartButton";
+import { useSelector } from "react-redux";
 
 export function EcommerceCard({ products }) {
     const router = useRouter();
+    const user = useSelector(state => state.user)
+    console.log(user)
     const handleClick = (id) => {
         console.log("clicked");
         console.log(id)
         router.push(`/product-info/${id}`);
     }
-
 
     return (
         <div className="grid grid-cols-3 gap-16 p-10">
@@ -50,7 +52,7 @@ export function EcommerceCard({ products }) {
                             </div>
 
                             <CardFooter className="pt-0">
-                                <AddToCartButton product={product} />
+                                {user?.id && <AddToCartButton product={product} />}
                             </CardFooter>
                         </Card>)
                 })
