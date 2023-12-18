@@ -54,6 +54,20 @@ const register = async ({ user }) => {
     }
 };
 
+const logout = () => {
+    try {
+        console.log("Logging out")
+        // await api.post('/auth/logout');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('siteUser');
+
+        location.reload()
+    } catch (error) {
+        console.error('Logout failed:', error);
+        throw new Error('Failed to logout');
+    }
+}
 
 
-export { login, register };
+export { login, register, logout };

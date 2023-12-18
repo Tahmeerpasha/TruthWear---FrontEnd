@@ -29,8 +29,9 @@ const Login = () => {
                 .then((res) => {
                     console.log(res)
                     console.log('Login successful!');
-                    // Redirect to the home page or perform other actions after successful logi
+                    // Redirect to the home page or perform other actions after successful login
                     router.push('/')
+                    // router.refresh()
                 }).catch((err) => {
                     console.log(err)
                 });

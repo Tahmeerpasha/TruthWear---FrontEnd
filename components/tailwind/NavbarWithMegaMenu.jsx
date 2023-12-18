@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from "react";
+import React from "react";
 import {
     Navbar,
     Collapse,
@@ -12,6 +12,7 @@ import {
     MenuHandler,
     MenuList,
     MenuItem,
+    Badge,
 } from "@material-tailwind/react";
 import {
     ChevronDownIcon,
@@ -38,7 +39,11 @@ import {
 import { useRouter } from "next/navigation";
 import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Image from "next/image";
+import { logout } from "@/logic/authService";
+import { DialogWithForm } from "./DialogWithForm";
+import { logoutUserAsync } from "@/lib/features/userSlice";
 
 const getUser = () => {
     if (typeof window !== "undefined") {
@@ -220,15 +225,7 @@ function NavList() {
 export function NavbarWithMegaMenu() {
     const router = useRouter()
     const { loading, cartItems } = useSelector((state) => state.cart)
-    const [wishlistCount, setWishlistCount] = useState(0);
-    const [cartCount, setCartCount] = useState(0);
 
-    const addToCart = () => {
-        setCartCount(cartCount + 1);
-    }
-    const addToWishlist = () => {
-        setWishlistCount(wishlistCount + 1);
-    }
 
     const [openNav, setOpenNav] = React.useState(false);
     React.useEffect(() => {
@@ -248,10 +245,9 @@ export function NavbarWithMegaMenu() {
     return (
         <Navbar className="max-w-full sticky rounded-none border-black bg-black text-white bg-opacity-100 " variant="gradient">
             <div className="flex items-center justify-between" >
-
                 <div className='flex w-[30%] p-1 hover:cursor-pointer' onClick={() => { router.replace('/') }}>
-                    <img src="/logo.svg" alt="logo" className='p-2 w-[15%]' />
-                    <img src="/white-logo.jpg" alt="logo" className='w-[25%]' />
+                    <Image height={1080} width={1080} src="/logo.svg" alt="logo" className='p-2 w-[15%]' />
+                    <Image height={309} width={806} src="/white-logo.jpg" alt="logo" className='w-[25%]' />
                 </div>
 
                 <div className="hidden lg:block">
@@ -260,33 +256,30 @@ export function NavbarWithMegaMenu() {
 
                 {user !== null ?
                     (
-                        <ul className="flex justify-between items-center">
-                            <li className='p-2 relative px-5 hover:cursor-pointer text-xs font- flex flex-col items-center justify-center' onClick={addToWishlist}>
-                                <FaRegHeart size={30} color="white" className='p-1' />
-                                {wishlistCount > 0 && <span className='absolute top-2 left-[40px] bg-red-500 text-white rounded-full px-2'>{wishlistCount}</span>}
+                        <ul className="flex space-x-5 justify-center items-center">
+                            <li className='hover:cursor-pointer'>
+                                <Badge content={0}>
+                                    <FaRegHeart size={30} color="white" />
+                                </Badge>
                             </li>
-                            <li className='p-2 px-5 text-xs hover:cursor-pointer flex flex-col items-center justify-center' onClick={addToCart}>
-                                <FiShoppingCart size={30} color="white" onClick={() => router.push('/cart')} />
-                                {<span className='absolute top-5 right-[100px] bg-red-500 text-white rounded-full px-2'>
-                                    {loading ? '' : cartItems.length}
-                                </span>}
+                            <li className='hover:cursor-pointer'>
+                                <Badge content={loading ? '' : cartItems.length}>
+                                    <FiShoppingCart size={32} color="white" onClick={() => router.push('/cart')} />
+                                </Badge>
                             </li>
                             <li>
-                                <ProfileMenu className="px-5" />
+                                <ProfileMenu className="" />
                             </li>
                         </ul>
                     )
                     :
                     <div className="hidden gap-2 lg:flex">
-                        <Button variant="text" size="sm" color="white" name="Login" onClick={() => handleClick("Login")}>
-                            Log In
-                        </Button>
+                        <DialogWithForm />
                         <Button variant="gradient" size="sm" name="SignUp" onClick={() => handleClick("sign-up")}>
                             Sign Up
                         </Button>
                     </div>
                 }
-
                 <IconButton
                     variant="text"
                     color="white"
@@ -307,7 +300,7 @@ export function NavbarWithMegaMenu() {
                         Log In
                     </Button>
                     <Button variant="gradient" size="sm" fullWidth>
-                        Sign In
+                        Sign Up
                     </Button>
                 </div>
             </Collapse>
@@ -338,9 +331,20 @@ const profileMenuItems = [
     },
 ];
 function ProfileMenu() {
+    const dispatch = useDispatch()
+    const router = useRouter()
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     const closeMenu = () => setIsMenuOpen(false);
+    const handleClick = (label) => {
+        if (label === 'Sign Out') {
+            logout();
+            dispatch(logoutUserAsync());
+        } else {
+            router.push('/' + label);
+        }
+        console.log(label);
+    };
 
     return (
         <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -350,16 +354,7 @@ function ProfileMenu() {
                     color="blue-gray"
                     className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
                 >
-                    {/* {user !== null ? <Avatar
-                        variant="circular"
-                        size="sm"
-                        alt="tania andrew"
-                        className="border border-gray-900 p-0.5"
-                        // If user does not have an image then use the default image
-                        src={userImage}
-                    /> : <RxAvatar />} */}
                     <RxAvatar color="white" size={40} />
-
                     <ChevronDownIcon
                         strokeWidth={2.5}
                         className={`h-3 w-3 transition-transform ${isMenuOpen ? "rotate-180" : ""
@@ -373,7 +368,7 @@ function ProfileMenu() {
                     return (
                         <MenuItem
                             key={label}
-                            onClick={closeMenu}
+                            onClick={() => { closeMenu; handleClick(label) }}
                             className={`flex items-center gap-2 rounded ${isLastItem
                                 ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
                                 : ""

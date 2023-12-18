@@ -1,5 +1,4 @@
 import api from "./api";
-
 export const addToCartApi = async (product, qty) => {
     try {
         const user = JSON.parse(localStorage.getItem('siteUser'));
