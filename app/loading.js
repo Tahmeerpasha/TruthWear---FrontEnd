@@ -1,6 +1,5 @@
 'use client'
-import { Progress, Spinner } from '@material-tailwind/react';
-import Image from 'next/image';
+import { Spinner } from '@material-tailwind/react';
 import React, { useEffect, useState } from 'react';
 
 const Loading = () => {

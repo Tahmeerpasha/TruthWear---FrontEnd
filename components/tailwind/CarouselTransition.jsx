@@ -9,6 +9,7 @@ import Loader from "./Loader";
 export function CarouselTransition() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    loading
     const [error, setError] = useState(null);
     const router = useRouter();
     const fetchProducts = async (url) => {
