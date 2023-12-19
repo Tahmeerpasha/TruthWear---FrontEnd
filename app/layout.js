@@ -25,6 +25,10 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
+      <head>
+        <title>TruthWear</title>
+        <desc>The only marketplace built specifically for Cristianity focused goods!</desc>
+      </head>
       <StoreProvider>
 
         <body className={inter.className}>
