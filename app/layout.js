@@ -6,6 +6,7 @@ import { NavbarWithMegaMenu } from '@/components/tailwind/NavbarWithMegaMenu'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import SplashScreen from '@/components/SplashScreen'
+import { Footer } from '@/components/tailwind/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,7 +28,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <title>TruthWear</title>
-        <desc>The only marketplace built specifically for Cristianity focused goods!</desc>
+        {/* <desc>The only marketplace built specifically for Cristianity focused goods!</desc> */}
       </head>
       <StoreProvider>
 
@@ -35,8 +36,11 @@ export default function RootLayout({ children }) {
           {isLoading && isHome ?
             <SplashScreen finishLoading={() => setIsLoading(false)} /> :
             <>
-              <NavbarWithMegaMenu />
+              <div className='mb-28'>
+                <NavbarWithMegaMenu />
+              </div>
               {children}
+              <Footer />
             </>
           }
         </body>
