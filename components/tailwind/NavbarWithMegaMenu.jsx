@@ -258,13 +258,14 @@ export function NavbarWithMegaMenu() {
                     (
                         <ul className="flex space-x-5 justify-center items-center">
                             <li className='hover:cursor-pointer'>
-                                <Badge content={0}>
+                                {/* Change the badge visibility when implementing the wishlist */}
+                                <Badge invisible>
                                     <FaRegHeart size={30} color="white" />
                                 </Badge>
                             </li>
                             <li className='hover:cursor-pointer'>
-                                <Badge content={loading ? '' : cartItems.length}>
-                                    <FiShoppingCart size={32} color="white" onClick={() => router.push('/cart')} />
+                                <Badge content={loading ? '' : cartItems.length} className={cartItems.length > 0 ? 'flex justify-center items-center' : 'hidden'}>
+                                    <FiShoppingCart size={30} color="white" onClick={() => router.push('/cart')} />
                                 </Badge>
                             </li>
                             <li>
