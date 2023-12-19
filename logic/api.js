@@ -1,43 +1,72 @@
 // api.js
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
+
 
 const api = axios.create({
     baseURL: 'http://localhost:8080/api/v1',
 });
 api.defaults.headers.common['Content-Type'] = "application/json"
 api.defaults.headers.common['Accept'] = "application/json"
+
 api.interceptors.request.use((config) => {
     const accessToken = localStorage.getItem('accessToken');
+    const tokenExpired = isTokenExpired(accessToken);
+    if (tokenExpired) {
+        const refresh = localStorage.getItem('refreshToken')
+        refreshTokenApi(refresh)
+        location.reload()
+    }
+
     if (accessToken) {
-        // console.log(accessToken);
         config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
 });
 
-api.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-        const originalRequest = error.config;
-        // If the request fails due to an expired token, you can handle token refresh here
-        try {
-            if (error.response.status === 401 && !originalRequest._retry) {
-                originalRequest._retry = true;
-                const refreshToken = localStorage.getItem('refreshToken');
-                const payload = {
-                    "refreshToken": refreshToken
-                };
-                const response = await api.post('/auth/refresh', { payload });
-                console.log("Got new access token");
-                const { accessToken } = response.data;
-                localStorage.setItem('accessToken', accessToken);
-                return api(originalRequest);
-            }
-        } catch (err) {
-            console.log(err.message);
-        }
-        return Promise.reject(error);
-    }
-);
 
 export default api;
+
+
+const decodeToken = (token) => {
+    try {
+        const decoded = jwt.decode(token);
+        return decoded;
+    } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+    }
+};
+
+const isTokenExpired = (token) => {
+    const decodedToken = decodeToken(token);
+
+    if (decodedToken && decodedToken.exp) {
+        const currentTime = Date.now() / 1000;
+        return decodedToken.exp < currentTime;
+    }
+
+    return false;
+};
+
+const refreshTokenApi = async (refreshToken) => {
+    try {
+        // Make a request to the server to refresh the token
+        const response = await api.post('/auth/refresh', { refresh_token: refreshToken });
+
+        if (response.status === 200 || response.status === 201) {
+            const newToken = await response.data;
+            console.log(newToken);
+            localStorage.setItem('accessToken', newToken.access_token);
+            // Store the new token in a secure way (e.g., local storage, redux store)
+            // Handle the refreshed token as needed
+        } else {
+            // Handle the case where the refresh request fails
+            console.log("Refresh token failed", response.data)
+        }
+
+    } catch (error) {
+        console.error('Error refreshing token:', error);
+    }
+};
+
