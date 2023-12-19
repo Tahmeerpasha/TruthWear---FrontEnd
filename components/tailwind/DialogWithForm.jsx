@@ -39,10 +39,13 @@ export function DialogWithForm() {
             console.log("Handling login...");
             console.log(formData.email + " " + formData.password);
             console.log("Remember Me:", formData.rememberMe);
-            dispatch(loginUserAsync(formData.email, formData.password))
+            const response = dispatch(loginUserAsync(formData.email, formData.password))
+            if (response?.siteUser)
+                location.reload();
+
+
             handleOpen();
             // if (onLogin) onLogin();
-            // location.reload();
         } catch (error) {
             console.error("Login failed:", error.message);
             // Handle login failure, e.g., show an error message
