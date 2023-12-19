@@ -1,4 +1,6 @@
+import axios from "axios";
 import api from "./api";
+const BASE_URL = 'http://localhost:8080/api/v1'
 export const addToCartApi = async (product, qty) => {
     try {
         const user = JSON.parse(localStorage.getItem('siteUser'));
@@ -67,3 +69,37 @@ export const getCartItemsApi = async () => {
         console.error("An error occurred:", err);
     }
 };
+
+export const fetchCategories = async () => {
+    try {
+        api.defaults.responseType = "json";
+        const response = await api.get(`/product-categories`)
+        if (response.status !== 200) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        } else {
+            const data = await response.data;
+            console.log(data);
+            return data;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const fetchProducts = async (url) => {
+    try {
+        api.defaults.responseType = "json";
+        const response = await api.get(url)
+
+        if (response.status !== 200) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.data;
+        console.log(data)
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { GiConfirmed } from 'react-icons/gi';
 import { CiEdit } from 'react-icons/ci';
 import { MdDeleteOutline } from 'react-icons/md';
-import api from '@/logic/api';
+import api from '@/api/api';
 
 const Categories = ({ fetchProducts, onSelectCategory, onClearFilter, categories, fetchCategories }) => {
     console.log(categories);

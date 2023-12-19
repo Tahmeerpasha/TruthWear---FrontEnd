@@ -41,7 +41,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
-import { logout } from "@/logic/authService";
+import { logout } from "@/api/authService";
 import { DialogWithForm } from "./DialogWithForm";
 import { logoutUserAsync } from "@/lib/features/userSlice";
 

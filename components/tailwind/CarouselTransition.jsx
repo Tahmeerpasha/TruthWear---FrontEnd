@@ -1,54 +1,20 @@
 'use client'
-import api from "@/logic/api";
-import { Carousel } from "@material-tailwind/react";
-import { React, Suspense, useEffect, useState } from "react";
+import { Carousel, Spinner } from "@material-tailwind/react";
+import { React, Suspense } from "react";
 import Images from "../Images";
 import { useRouter } from "next/navigation";
-import Loader from "./Loader";
 
-export function CarouselTransition() {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    loading
-    const [error, setError] = useState(null);
+export function CarouselTransition({ products }) {
     const router = useRouter();
-    const fetchProducts = async (url) => {
-        try {
-            setLoading(true);
-            const response = await api.get(url)
-
-            if (response.status !== 200) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const data = await response.data;
-            console.log(data)
-            setProducts(data);
-        } catch (error) {
-            setError(error.message);
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    useEffect(() => {
-        fetchProducts('/products')
-        console.log('CarouselTransition')
-    }, [])
-
-    // if (loading) {
-    //     return <div className="text-center"><Spinner /></div>;
-    // }
-
     const handleClick = (id) => {
         console.log(id)
         router.push(`/product-info/${id}`)
     }
 
     return (
-        <Suspense fallback={<Loader />}>
-            <Carousel transition={{ duration: 2 }} className="rounded-xl overflow-hidden w-fit bg-black mx-10 mt-4 py-3" loop autoplay>
-                {error && <p>{error}</p>}
-                {products?.map(product => {
+        <Suspense fallback={<Spinner />}>
+            <Carousel transition={{ duration: 2 }} className="rounded-xl overflow-hidden w-full mx-10 bg-black mt-4 py-3" loop autoplay>
+                {products.length > 0 && products?.map(product => {
                     return (
                         <div className="max-h-[400px] flex  justify-between" key={product.id} onClick={() => handleClick(product.id)}>
                             <div className="flex flex-col text-white">
@@ -64,8 +30,7 @@ export function CarouselTransition() {
                             </div>
                         </div>
                     )
-                })
-                }
+                })}
             </Carousel>
         </Suspense>
     );

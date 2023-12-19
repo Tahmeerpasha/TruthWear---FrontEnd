@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useRef } from "react";
-import api from "@/logic/api";
+import api from "@/api/api";
 import Image from 'next/image';
 
 const HomeProductImage = ({ productInfo, style }) => {

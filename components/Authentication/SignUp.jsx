@@ -1,12 +1,11 @@
 'use client'
 import { Button } from "@material-tailwind/react";
 import { useState } from "react";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { signUp } from "@/api/authService";
 
 const SignUp = () => {
-    const BASE_URL = 'http://localhost:8080/api/v1'
     const router = useRouter()
     const [formData, setFormData] = useState({
         firstName: "",
@@ -26,24 +25,13 @@ const SignUp = () => {
 
     const handleSignUp = async (e) => {
         e.preventDefault();
+        await signUp(formData).
+            then(res => {
+                confirm(res.message),
+                    router.push("/")
+            }).
+            catch(err => { console.error("Sign up failed:", err.message); })
 
-        try {
-            console.log("Handling sign up...");
-            console.log(formData);
-            const response = await axios.post(`${BASE_URL}/auth/register`, formData);
-            console.log("Sign up successful!" + response.data);
-            const { token, refreshToken, siteUser } = response.data;
-            localStorage.setItem("accessToken", token);
-            localStorage.setItem("refreshToken", refreshToken);
-            localStorage.setItem("siteUser", JSON.stringify(siteUser));
-            console.log("Response:", token, refreshToken, siteUser);
-            router.push("/login");
-        } catch (error) {
-            console.error("Sign up failed:", error.message);
-            // Handle sign up failure, e.g., show an error message
-        }
-
-        // Clear the form data
         setFormData({
             firstName: "",
             lastName: "",
@@ -57,9 +45,7 @@ const SignUp = () => {
         <div className="flex h-screen">
 
             <div className="w-1/2 bg-gray-200 flex justify-center pt-24 items-center h-full">
-                {/* Image or content for the picture */}
                 <Image src={'/Pray-On-It.svg'} alt="quotes" width={100} height={100} className="w-[500px]" />
-                {/* Adjust styles to fill 40% of the screen */}
             </div>
             <div className="w-120 px-20 flex flex-col justify-center items-start">
                 <h1 className="text-5xl font-bold mb-10">Sign Up</h1>

@@ -5,7 +5,7 @@ const HorizontalCategories = ({ onSelectCategory, onClearFilter, categories }) =
     return (
         <div className='flex'>
             <div className='flex items-center'>
-                <Button
+                {categories.length > 0 && <Button
                     color='white'
                     variant='outlined'
                     size='lg'
@@ -13,7 +13,7 @@ const HorizontalCategories = ({ onSelectCategory, onClearFilter, categories }) =
                     onClick={onClearFilter}
                 >
                     All
-                </Button>
+                </Button>}
             </div>
             <div className='flex flex-1 gap-7 p-6 justify-center rounded-xl'>
                 {Array.isArray(categories) && categories?.map(category => {

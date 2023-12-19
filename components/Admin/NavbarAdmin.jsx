@@ -32,7 +32,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
-import { logout } from "@/logic/authService";
+import { logout } from "@/api/authService";
 import { DialogWithForm } from "../tailwind/DialogWithForm";
 import { logoutUserAsync } from "@/lib/features/userSlice";
 
@@ -61,7 +61,7 @@ function NavList() {
                 variant="small"
                 color="white"
                 className="font-medium"
-                onClick={() => router.push('/')}
+                onClick={() => router.push('/admin/add-product')}
             >
                 <ListItem className="flex items-center gap-2 py-2 pr-4">Add Products</ListItem>
             </Typography>
@@ -71,6 +71,7 @@ function NavList() {
                 variant="small"
                 color="white"
                 className="font-medium"
+                onClick={() => router.push('/admin/products')}
             >
                 <ListItem className="flex items-center gap-2 py-2 pr-4">View Products</ListItem>
             </Typography>

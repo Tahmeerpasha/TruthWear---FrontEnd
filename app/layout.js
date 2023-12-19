@@ -6,14 +6,8 @@ import { NavbarWithMegaMenu } from '@/components/tailwind/NavbarWithMegaMenu'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import SplashScreen from '@/components/SplashScreen'
-import { Footer } from '@/components/tailwind/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
-
-// export const metadata = {
-//   title: 'TruthWear',
-//   description: 'The only marketplace built specifically for Cristianity focused goods!',
-// }
 
 export default function RootLayout({ children }) {
   const pathname = usePathname()
@@ -27,7 +21,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <title>TruthWear</title>
+        <title>WearTruth</title>
         {/* <desc>The only marketplace built specifically for Cristianity focused goods!</desc> */}
       </head>
       <StoreProvider>
@@ -40,7 +34,6 @@ export default function RootLayout({ children }) {
                 <NavbarWithMegaMenu />
               </div>
               {children}
-              <Footer />
             </>
           }
         </body>

@@ -10,10 +10,9 @@ import HomeProductImage from "../User/HomeProductImage";
 import AddToCartButton from "../User/AddToCartButton";
 import { useSelector } from "react-redux";
 
-export function EcommerceCard({ products }) {
+export function ProductCards({ products }) {
     const router = useRouter();
     const user = useSelector(state => state.user)
-    console.log(user)
     const handleClick = (id) => {
         console.log("clicked");
         console.log(id)
@@ -23,7 +22,7 @@ export function EcommerceCard({ products }) {
     return (
         <div className="grid grid-cols-3 gap-16 p-10">
             {
-                Array.isArray(products) && products?.map(product => {
+                products && products?.map(product => {
                     return (
                         <Card className="w-96" key={product.id} >
                             <div className="hover:cursor-pointer" onClick={() => handleClick(product.id)}>

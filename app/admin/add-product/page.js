@@ -1,7 +1,7 @@
 'use client'
 import AddProducts from '@/components/Admin/AddProducts'
 import Categories from '@/components/Admin/Categories'
-import api from '@/logic/api'
+import api from '@/api/api'
 import React, { useEffect, useState } from 'react'
 
 const Page = () => {
@@ -11,7 +11,7 @@ const Page = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     api.defaults.responseType = "json";
-    products,error,loading
+    products, error, loading
 
     const fetchCategories = async () => {
         try {

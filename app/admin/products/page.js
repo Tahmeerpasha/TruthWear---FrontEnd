@@ -1,7 +1,7 @@
 'use client'
 import Categories from '@/components/Admin/Categories'
 import Products from '@/components/Admin/Products'
-import api from '@/logic/api'
+import api from '@/api/api'
 import { Spinner } from '@material-tailwind/react'
 import React, { useEffect, useState } from 'react'
 

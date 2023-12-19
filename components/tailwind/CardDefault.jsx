@@ -7,7 +7,7 @@ import {
     Button,
 } from "@material-tailwind/react";
 import Link from "next/link";
-import api from "@/logic/api";
+import api from "@/api/api";
 import { useEffect, useRef } from "react";
 
 export function CardDefault({ productInfo }) {

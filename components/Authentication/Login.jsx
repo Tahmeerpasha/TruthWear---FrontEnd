@@ -1,7 +1,7 @@
 'use client'
 // Login.jsx
 import React, { useState } from 'react';
-import { login } from '@/logic/authService'
+import { login } from '@/api/authService'
 import { Button } from '@material-tailwind/react';
 import { useRouter } from 'next/navigation';
 

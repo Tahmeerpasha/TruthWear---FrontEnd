@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { VscTriangleRight } from 'react-icons/vsc';
 import { Button } from '@material-tailwind/react';
-import api from '@/logic/api';
+import api from '@/api/api';
 import { useRouter } from 'next/navigation';
 
 const AddProducts = ({ selectedCategory }) => {

@@ -1,5 +1,5 @@
 'use client'
-import api from '@/logic/api'
+import api from '@/api/api'
 import React, { useEffect, useState } from 'react'
 
 const ProductInfoPage = ({ id }) => {

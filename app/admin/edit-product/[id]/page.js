@@ -1,6 +1,6 @@
 'use client'
 // Importing necessary dependencies and components
-import api from '@/logic/api';
+import api from '@/api/api';
 import { Button } from '@material-tailwind/react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';

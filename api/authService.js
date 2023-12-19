@@ -68,6 +68,19 @@ const logout = () => {
         throw new Error('Failed to logout');
     }
 }
+const signUp = async (formData) => {
 
+    try {
+        console.log("Handling sign up...");
+        const response = await axios.post(`${BASE_URL}/auth/register`, formData);
+        const data = await response.data;
+        if (response.status === 200 || response.status === 201) {
+            return { message: "Sign Up Successful! Please login to continue.", data: data };
+        }
+        console.log("Sign up Successful:");
+    } catch (error) {
+        console.error("Sign up failed:", error.message);
+    }
+};
 
-export { login, register, logout };
+export { login, register, logout, signUp };
