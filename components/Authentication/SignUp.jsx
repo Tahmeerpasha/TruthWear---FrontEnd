@@ -56,7 +56,7 @@ const SignUp = () => {
     return (
         <div className="flex h-screen">
 
-            <div className="w-1/2 bg-gray-200 flex justify-center items-center h-full">
+            <div className="w-1/2 bg-gray-200 flex justify-center pt-24 items-center h-full">
                 {/* Image or content for the picture */}
                 <Image src={'/Pray-On-It.svg'} alt="quotes" width={100} height={100} className="w-[500px]" />
                 {/* Adjust styles to fill 40% of the screen */}

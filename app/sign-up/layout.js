@@ -1,6 +1,6 @@
 'use client'
 import { Inter } from 'next/font/google'
-import { NavbarAdmin } from '@/components/Admin/NavbarAdmin'
+import { NavbarWithMegaMenu } from '@/components/tailwind/NavbarWithMegaMenu'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body className={inter.className}>
-                <NavbarAdmin />
+                <NavbarWithMegaMenu />
                 {children}
             </body>
         </html>
