@@ -243,7 +243,7 @@ export function NavbarWithMegaMenu() {
 
 
     return (
-        <Navbar className="max-w-full sticky rounded-none border-black bg-black text-white bg-opacity-100 " variant="gradient">
+        <Navbar className="max-w-full lg:fixed lg:z-50 lg:top-0 rounded-none  border-black bg-black text-white bg-opacity-100 " variant="filled">
             <div className="flex items-center justify-between" >
                 <div className='flex w-[30%] p-1 hover:cursor-pointer' onClick={() => { router.replace('/') }}>
                     <Image height={1080} width={1080} src="/logo.svg" alt="logo" className='p-2 w-[15%]' />
