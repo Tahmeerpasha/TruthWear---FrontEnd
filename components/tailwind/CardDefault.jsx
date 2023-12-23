@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import api from "@/api/api";
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 export function CardDefault({ productInfo }) {
     const imageRef = useRef(null);
@@ -55,7 +56,7 @@ export function CardDefault({ productInfo }) {
     return (
         <Card className="mt-6 w-96 ">
             <CardHeader color="blue-gray" className="relative h-56">
-                <img
+                <Image
                     ref={imageRef}
                     alt="card-image"
                     className=" w-full h-full rounded-md object-fill"

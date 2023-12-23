@@ -1,6 +1,7 @@
 'use client'
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
+import CartSummary from './User/CartSummary';
 
 const PaymentForm = () => {
   const cardInfo = useSelector((state) => state.cardInfo);
@@ -121,20 +122,19 @@ const PaymentForm = () => {
         </div>
       </div>
 
-      
+
       <div className="w-full lg:w-2/5 bg-gray-200 p-8 mt-4 lg:mt-0 lg:ml-4">
         <div
-          className={`order-summary-section ${
-            isSummaryCollapsed ? 'collapsed' : ''
-          }`}
+          className={`order-summary-section ${isSummaryCollapsed ? 'collapsed' : ''
+            }`}
         >
           <h2
             className="text-2xl font-bold cursor-pointer"
             onClick={toggleSummaryCollapse}
           >
-            Order Summary
+            {/* Order Summary */}
           </h2>
-          {/* Order summary content */}
+          <CartSummary />
         </div>
       </div>
     </div>
