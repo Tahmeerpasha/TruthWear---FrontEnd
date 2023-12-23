@@ -22,7 +22,10 @@ const ProductInfoPage = ({ id }) => {
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row -mx-4">
                     <div className="md:flex-1 px-4">
-                        <div className="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
+                        {/* <div className="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
+                            <Images productInfo={product} />
+                        </div> */}
+                        <div className="max-h-fit rounded-lg bg-gray-300 dark:bg-gray-700 mb-4 ">
                             <Images productInfo={product} />
                         </div>
                         <div className="flex -mx-2 mb-4">

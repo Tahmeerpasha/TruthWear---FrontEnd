@@ -36,8 +36,8 @@ const Images = ({ productInfo }) => {
                 ref={imageRef}
                 alt="card-image"
                 className="w-fit h-[500px]  object-cover"
-                width={500}
-                height={500}
+                width={1920}
+                height={1080}
             />
         </div>
     )

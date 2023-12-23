@@ -35,6 +35,8 @@ const HomeProductImage = ({ productInfo, style }) => {
             <Image
                 ref={imageRef}
                 alt="card-image"
+                width={1920}
+                height={1080}
                 className={" object-cover " + style}
             />
         </div>
