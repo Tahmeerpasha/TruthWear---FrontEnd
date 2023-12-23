@@ -1,10 +1,12 @@
+import { clearCart } from '@/lib/features/cartSlice';
 import { Button } from '@material-tailwind/react';
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const CartSummary = () => {
 
     const cart = useSelector((state) => state.cart)
+    const dispatch = useDispatch()
     useEffect(() => {
         console.log(cart);
     }, [cart]);
@@ -22,6 +24,7 @@ const CartSummary = () => {
             })
             .then((response) => {
                 console.log(response);
+                dispatch(clearCart())
                 if (response.url) {
                     window.location.href = response.url;
                     console.log(response.url);
