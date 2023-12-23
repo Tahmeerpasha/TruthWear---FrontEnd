@@ -13,16 +13,16 @@ export function CarouselTransition({ products }) {
 
     return (
         <Suspense fallback={<Spinner />}>
-            <Carousel transition={{ duration: 2 }} className="rounded-xl overflow-hidden w-full mx-10 bg-black mt-4 py-3" loop autoplay>
+            <Carousel transition={{ duration: 2 }} className="lg:rounded-xl overflow-hidden lg:w-full lg:mx-10 bg-black lg:mt-4 h-[300px] lg:h-full lg:py-3" loop autoplay>
                 {products.length > 0 && products?.map(product => {
                     return (
-                        <div className="max-h-[400px] flex  justify-between" key={product.id} onClick={() => handleClick(product.id)}>
+                        <div className="lg:max-h-[400px] flex  justify-between" key={product.id} onClick={() => handleClick(product.id)}>
                             <div className="flex flex-col text-white">
-                                <p className="text-4xl p-5 underline">Our Newest Collections</p>
-                                <div className="p-10 flex flex-col justify-start">
-                                    <h1 className="text-3xl x-10">{product.productName}</h1>
-                                    <h1 className="text-sm py-5">{product.description}</h1>
-                                    <h1 className="text-xl ">Only Rs.{product.price}/-</h1>
+                                <p className="lg:text-4xl md:text-2xl p-5 underline">Our Newest Collections</p>
+                                <div className="lg:p-10 p-5 flex flex-col justify-center lg:justify-start">
+                                    <h1 className="lg:text-3xl md:text-2xl x-10">{product.productName}</h1>
+                                    <h1 className="text-md hidden lg:flex py-5">{product.description}</h1>
+                                    <h1 className="lg:text-xl ">Only Rs.{product.price}/-</h1>
                                 </div>
                             </div>
                             <div className="">

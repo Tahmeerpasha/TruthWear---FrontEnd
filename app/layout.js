@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
           {isLoading && isHome ?
             <SplashScreen finishLoading={() => setIsLoading(false)} /> :
             <>
-              <div className='pb-20'>
+              <div className='lg:pb-20'>
                 <NavbarWithMegaMenu />
               </div>
               {children}

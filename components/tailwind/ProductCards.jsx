@@ -20,11 +20,11 @@ export function ProductCards({ products }) {
     }
 
     return (
-        <div className="grid grid-cols-3 gap-16 p-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 p-10">
             {
                 products && products?.map(product => {
                     return (
-                        <Card className="w-96" key={product.id} >
+                        <Card className="lg:w-96" key={product.id} >
                             <div className="hover:cursor-pointer" onClick={() => handleClick(product.id)}>
 
                                 <CardHeader shadow={false} floated={false} className="h-64">

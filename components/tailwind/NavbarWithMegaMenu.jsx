@@ -246,8 +246,8 @@ export function NavbarWithMegaMenu() {
         <Navbar className="max-w-full lg:fixed lg:z-50 lg:top-0 rounded-none  border-black bg-black text-white bg-opacity-100 " variant="filled">
             <div className="flex items-center justify-between" >
                 <div className='flex w-[30%] p-1 hover:cursor-pointer' onClick={() => { router.replace('/') }}>
-                    <Image height={1080} width={1080} src="/logo.svg" alt="logo" className='p-2 w-[15%]' />
-                    <Image height={309} width={806} src="/white-logo.jpg" alt="logo" className='w-[25%]' />
+                    <Image height={1080} width={1080} src="/logo.svg" alt="logo" className='p-2 lg:w-[15%] w-[50%]' />
+                    <Image height={309} width={806} src="/white-logo.jpg" alt="logo" className='lg:w-[25%] w-[100%]' />
                 </div>
 
                 <div className="hidden lg:block">
@@ -256,7 +256,7 @@ export function NavbarWithMegaMenu() {
 
                 {user !== null ?
                     (
-                        <ul className="flex space-x-5 justify-center items-center">
+                        <ul className="lg:flex hidden space-x-5 justify-center items-center">
                             <li className='hover:cursor-pointer'>
                                 {/* Change the badge visibility when implementing the wishlist */}
                                 <Badge invisible>
@@ -296,14 +296,33 @@ export function NavbarWithMegaMenu() {
             </div>
             <Collapse open={openNav}>
                 <NavList />
-                <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-                    <Button variant="outlined" size="sm" color="white" fullWidth>
-                        Log In
-                    </Button>
-                    <Button variant="gradient" size="sm" fullWidth>
-                        Sign Up
-                    </Button>
-                </div>
+                {user !== null ?
+                    (
+                        <ul className="grid grid-cols-3 lg:hidden space-x-5 gap-8 justify-center items-center">
+                            <li className='hover:cursor-pointer'>
+                                {/* Change the badge visibility when implementing the wishlist */}
+                                <Badge invisible>
+                                    <FaRegHeart size={30} color="white" />
+                                </Badge>
+                            </li>
+                            <li className='hover:cursor-pointer'>
+                                <Badge content={loading ? '' : cartItems.length} className={cartItems.length > 0 ? 'flex justify-center items-center' : 'hidden'}>
+                                    <FiShoppingCart size={30} color="white" onClick={() => router.push('/cart')} />
+                                </Badge>
+                            </li>
+                            <li>
+                                <ProfileMenu className="" />
+                            </li>
+                        </ul>
+                    )
+                    :
+                    <div className=" gap-2 lg:hidden">
+                        <DialogWithForm />
+                        <Button variant="gradient" size="sm" name="SignUp" onClick={() => handleClick("sign-up")}>
+                            Sign Up
+                        </Button>
+                    </div>
+                }
             </Collapse>
         </Navbar>
     );
