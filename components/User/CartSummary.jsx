@@ -1,4 +1,4 @@
-import { Button } from '@material-tailwind/react'
+import { Button } from '@material-tailwind/react';
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -30,29 +30,52 @@ const CartSummary = () => {
     };
 
     return (
-        <div className='p-5'>
+        <div classNameName='p-5'>
             {cart.itemPrice > 0 ?
                 <>
-                    <span className='p-2 underline text-black text-3xl font-bold'>Order Summary</span>
-                    <div className='flex flex-col p-5'>
-                        <div className='grid grid-cols-2 justify-end'>
-                            <span className=''>Total Items Price:</span>
-                            <span className=''> Rs.{cart.itemPrice}/-</span>
-                        </div>
-                        <div className='grid grid-cols-2'>
-                            <span>Tax Cost: </span>
-                            <span>Rs.{cart.taxPrice}/-</span>
-                        </div>
-                        <div className='grid grid-cols-2'>
-                            <span>Shipping Price:</span>
-                            <span> Rs.{cart.shippingPrice}/-</span>
-                        </div>
-                        <div className='grid grid-cols-2'>
-                            <span>Total Price:</span>
-                            <span> Rs.{cart.totalPrice}/-</span>
+                    <div className="flex flex-wrap justify-between">
+                        <div className="w-full px-4 mb-4  ">
+                            <div className="p-6 border dark:bg-gray-900 dark:border-gray-900 bg-gray-50 md:p-8">
+                                <h2 className="mb-8 text-3xl font-bold text-gray-700 dark:text-gray-400">Order Summary</h2>
+                                <div
+                                    className="flex items-center justify-between pb-4 mb-4 border-b border-gray-300 dark:border-gray-700 ">
+                                    <span className="text-gray-700 dark:text-gray-400">Subtotal</span>
+                                    <span className="text-xl font-bold text-gray-700 dark:text-gray-400 ">Rs.{cart.itemPrice}/-</span>
+                                </div>
+                                <div className="flex items-center justify-between pb-4 mb-4 ">
+                                    <span className="text-gray-700 dark:text-gray-400 ">Tax</span>
+                                    <span className="text-xl font-bold text-gray-700 dark:text-gray-400 ">Rs.{cart.taxPrice}/-</span>
+                                </div>
+                                <div className="flex items-center justify-between pb-4 mb-4 ">
+                                    <span className="text-gray-700 dark:text-gray-400 ">Shipping</span>
+                                    <span className="text-xl font-bold text-gray-700 dark:text-gray-400 ">Free</span>
+                                </div>
+                                <div className="flex items-center justify-between pb-4 mb-4 ">
+                                    <span className="text-gray-700 dark:text-gray-400">Order Total</span>
+                                    <span className="text-xl font-bold text-gray-700 dark:text-gray-400">Rs.{cart.totalPrice}/-</span>
+                                </div>
+                                <h2 className="text-lg text-gray-500 dark:text-gray-400">We offer:</h2>
+                                <div className="flex items-center gap-2 mb-4 " >
+                                    <a href="#">
+                                        <img src="https://i.postimg.cc/g22HQhX0/70599-visa-curved-icon.png" alt=""
+                                            className="object-cover h-16 w-26" />
+                                    </a>
+                                    <a href="#">
+                                        <img src="https://i.postimg.cc/HW38JkkG/38602-mastercard-curved-icon.png" alt=""
+                                            className="object-cover h-16 w-26" />
+                                    </a>
+                                    <a href="#">
+                                        <img src="https://i.postimg.cc/HL57j0V3/38605-paypal-straight-icon.png" alt=""
+                                            className="object-cover h-16 w-26" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="flex items-center justify-between ">
+                                <Button onClick={checkout}
+                                    className="block w-full py-4 font-bold text-center text-gray-100 uppercase bg-black rounded-md hover:bg-blue-600">Checkout</Button>
+                            </div>
                         </div>
                     </div>
-                    <Button className='w-full' onClick={checkout}>Checkout</Button>
                 </>
                 : ''}
         </div>
