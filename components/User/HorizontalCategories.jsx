@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tab, Tabs, TabsHeader } from '@material-tailwind/react';
+import { Tab, TabsHeader } from '@material-tailwind/react';
 
 const HorizontalCategories = ({ onSelectCategory, onClearFilter, categories }) => {
     return (

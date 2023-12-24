@@ -338,11 +338,7 @@ const profileMenuItems = [
         icon: UserCircleIcon,
     },
     {
-        label: "Edit Profile",
-        icon: Cog6ToothIcon,
-    },
-    {
-        label: "Inbox",
+        label: "Orders",
         icon: InboxArrowDownIcon,
     },
     {
