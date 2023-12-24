@@ -22,7 +22,6 @@ import {
 import { RxAvatar } from 'react-icons/rx'
 import {
     Bars4Icon,
-    Cog6ToothIcon,
     GlobeAmericasIcon,
     InboxArrowDownIcon,
     LifebuoyIcon,
