@@ -239,14 +239,13 @@ export function NavbarWithMegaMenu() {
         value === 'Login' ? router.push('/login') : router.push('/sign-up');
         console.log(value);
     }
-    console.log(cartItems.length)
 
     return (
         <Navbar className="max-w-full lg:fixed lg:z-50 lg:top-0 rounded-none  border-black bg-black text-white bg-opacity-100 " variant="filled">
             <div className="flex items-center justify-between" >
                 <div className='flex w-[30%] p-1 hover:cursor-pointer' onClick={() => { router.replace('/') }}>
-                    <Image height={1080} width={1080} src="/logo.svg" alt="logo" className='p-2 lg:w-[15%] w-[50%]' />
-                    <Image height={309} width={806} src="/white-logo.jpg" alt="logo" className='lg:w-[25%] w-[100%]' />
+                    <Image height={1080} width={1920} src="/logo.svg" alt="logo" className='p-2 lg:w-[15%] w-[50%]' />
+                    <Image height={1080} width={1920} src="/white-logo.jpg" alt="logo" className='lg:w-[25%] w-[100%]' />
                 </div>
 
                 <div className="hidden lg:block">

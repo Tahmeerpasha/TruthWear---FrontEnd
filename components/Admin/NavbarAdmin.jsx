@@ -81,9 +81,10 @@ function NavList() {
                 variant="small"
                 color="white"
                 className="font-medium"
+                onClick={() => router.push('/admin/orders')}
             >
                 <ListItem className="flex items-center gap-2 py-2 pr-4">
-                    Contact Us
+                    Orders
                 </ListItem>
             </Typography>
         </List>
@@ -125,17 +126,19 @@ export function NavbarAdmin() {
                 {user !== null ?
                     (
                         <ul className="flex space-x-5 justify-center items-center">
-                            <li className='hover:cursor-pointer'>
-                                {/* Change the badge visibility when implementing the wishlist */}
-                                <Badge invisible>
-                                    <FaRegHeart size={30} color="white" />
-                                </Badge>
-                            </li>
-                            <li className='hover:cursor-pointer'>
-                                <Badge content={loading ? '' : cartItems.length} className={cartItems.length > 0 ? 'flex justify-center items-center' : 'hidden'}>
-                                    <FiShoppingCart size={30} color="white" onClick={() => router.push('/cart')} />
-                                </Badge>
-                            </li>
+
+                            {/* <div className={user.l}>
+                                <li className='hover:cursor-pointer'>
+                                    <Badge invisible>
+                                        <FaRegHeart size={30} color="white" />
+                                    </Badge>
+                                </li>
+                                <li className='hover:cursor-pointer'>
+                                    <Badge content={loading ? '' : cartItems.length} className={cartItems.length > 0 ? 'flex justify-center items-center' : 'hidden'}>
+                                        <FiShoppingCart size={30} color="white" onClick={() => router.push('/cart')} />
+                                    </Badge>
+                                </li>
+                            </div> */}
                             <li>
                                 <ProfileMenu className="" />
                             </li>

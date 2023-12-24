@@ -10,6 +10,7 @@ import Link from "next/link";
 import api from "@/api/api";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { DialogDefault } from "./DialogDefault";
 
 export function CardDefault({ productInfo }) {
     const imageRef = useRef(null);
@@ -21,7 +22,6 @@ export function CardDefault({ productInfo }) {
                 console.log(res);
                 window.location.reload();
             });
-
         } catch (err) {
             console.log(err)
         }
@@ -54,27 +54,36 @@ export function CardDefault({ productInfo }) {
 
 
     return (
-        <Card className="mt-6 w-96 ">
-            <CardHeader color="blue-gray" className="relative h-56">
+        <Card className="w-96 mt-6">
+            <CardHeader shadow={false} floated={false} className="h-96">
                 <Image
                     ref={imageRef}
                     alt="card-image"
-                    className=" w-full h-full rounded-md object-fill"
+                    className="h-full w-full object-cover rounded-md"
                 />
             </CardHeader>
             <CardBody>
-                <Typography variant="h5" color="blue-gray" className="mb-2">
-                    {productInfo.productName}
-                </Typography>
-                <Typography>
+                <div className="mb-2 flex items-center justify-between">
+                    <Typography variant="h5" color="blue-gray" className="font-medium">
+                        {productInfo.productName}
+                    </Typography>
+                </div>
+                <Typography
+                    color="gray"
+                    className="font-normal opacity-75"
+                >
                     {productInfo.description}
+                </Typography>
+                <Typography className="text-end p-2 text-black">
+                    Rs.{productInfo.price}/-
                 </Typography>
             </CardBody>
             <CardFooter className="pt-0 flex justify-between">
                 <Link href={`/admin/edit-product/${productInfo.id}`}>
-                    <Button color="yellow">Edit</Button>
+                    <Button color="blue">Edit</Button>
                 </Link>
-                <Button color="red" onClick={handleDelete}>Delete</Button>
+                <DialogDefault handleDelete={handleDelete} />
+                {/* <Button color="red" onClick={() => { <DialogDefault /> }}>Delete</Button> */}
             </CardFooter>
         </Card>
     );

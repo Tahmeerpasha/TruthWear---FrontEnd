@@ -1,7 +1,7 @@
 'use client'
 // Importing necessary dependencies and components
 import api from '@/api/api';
-import { Button } from '@material-tailwind/react';
+import { Button, Spinner } from '@material-tailwind/react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { VscTriangleRight } from 'react-icons/vsc';
@@ -22,7 +22,7 @@ const Page = ({ params }) => {
     const [error, setError] = useState(null);
 
     // Function to handle form submission
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
         api.defaults.headers.common['Content-Type'] = 'multipart/form-data';
         try {
@@ -37,7 +37,7 @@ const Page = ({ params }) => {
             if (formDataState.stock != 0) formData.append('stock', formDataState.stock || 0);
             if (formDataState.price != 0) formData.append('price', formDataState.price);
             console.log(formDataState);
-            api.put(`/products/${params.id}`, formData).then((res) => console.log(res)).then(() => router.push('/admin/products'));
+            await api.put(`/products/${params.id}`, formData).then((res) => console.log(res)).then(() => router.push('/admin/products'));
         } catch (err) {
             console.log(err)
         }
@@ -77,7 +77,9 @@ const Page = ({ params }) => {
 
     // Render loading state
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className='flex justify-center items-center'>
+            <Spinner />
+        </div>;
     }
 
     // Render error state
