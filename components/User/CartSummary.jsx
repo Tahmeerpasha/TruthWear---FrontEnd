@@ -24,7 +24,8 @@ const CartSummary = () => {
             })
             .then((response) => {
                 console.log(response);
-                dispatch(clearCart())
+                if (response.url === 'http://localhost:3000/success')
+                    dispatch(clearCart())
                 if (response.url) {
                     window.location.href = response.url;
                     console.log(response.url);
@@ -51,7 +52,7 @@ const CartSummary = () => {
                                 </div>
                                 <div className="flex items-center justify-between pb-4 mb-4 ">
                                     <span className="text-gray-700 dark:text-gray-400 ">Shipping</span>
-                                    <span className="text-xl font-bold text-gray-700 dark:text-gray-400 ">Free</span>
+                                    <span className="text-xl font-bold text-gray-700 dark:text-gray-400 ">{cart.shippingPrice != 0 ? `Rs.${cart.shippingPrice}/-` : 'Free'}</span>
                                 </div>
                                 <div className="flex items-center justify-between pb-4 mb-4 ">
                                     <span className="text-gray-700 dark:text-gray-400">Order Total</span>

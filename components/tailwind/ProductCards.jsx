@@ -4,6 +4,7 @@ import {
     CardBody,
     CardFooter,
     Typography,
+    TabsBody,
 } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
 import HomeProductImage from "../User/HomeProductImage";
@@ -20,7 +21,14 @@ export function ProductCards({ products }) {
     }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 p-10">
+        <TabsBody
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 p-10"
+            animate={{
+                initial: { y: 250 },
+                mount: { y: 0 },
+                unmount: { y: 250 },
+            }}
+        >
             {
                 products && products?.map(product => {
                     return (
@@ -56,6 +64,6 @@ export function ProductCards({ products }) {
                         </Card>)
                 })
             }
-        </div>
+        </TabsBody>
     );
 }

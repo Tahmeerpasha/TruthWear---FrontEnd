@@ -240,7 +240,7 @@ export function NavbarWithMegaMenu() {
         value === 'Login' ? router.push('/login') : router.push('/sign-up');
         console.log(value);
     }
-
+    console.log(cartItems.length)
 
     return (
         <Navbar className="max-w-full lg:fixed lg:z-50 lg:top-0 rounded-none  border-black bg-black text-white bg-opacity-100 " variant="filled">
@@ -257,17 +257,19 @@ export function NavbarWithMegaMenu() {
                 {user !== null ?
                     (
                         <ul className="lg:flex hidden space-x-5 justify-center items-center">
-                            <li className='hover:cursor-pointer'>
-                                {/* Change the badge visibility when implementing the wishlist */}
-                                <Badge invisible>
-                                    <FaRegHeart size={30} color="white" />
-                                </Badge>
-                            </li>
-                            <li className='hover:cursor-pointer'>
-                                <Badge content={loading ? '' : cartItems.length} className={cartItems.length > 0 ? 'flex justify-center items-center' : 'hidden'}>
-                                    <FiShoppingCart size={30} color="white" onClick={() => router.push('/cart')} />
-                                </Badge>
-                            </li>
+                            {<div className={cartItems.length !== 0 ? 'block' : 'hidden'}>
+                                <li className='hover:cursor-pointer hidden'>
+                                    {/* Change the badge visibility when implementing the wishlist */}
+                                    <Badge invisible>
+                                        <FaRegHeart size={30} color="white" />
+                                    </Badge>
+                                </li>
+                                <li className='hover:cursor-pointer'>
+                                    <Badge content={loading ? '' : cartItems.length} className={cartItems.length > 0 ? 'flex justify-center items-center' : 'hidden'}>
+                                        <FiShoppingCart size={30} color="white" onClick={() => router.push('/cart')} />
+                                    </Badge>
+                                </li>
+                            </div>}
                             <li>
                                 <ProfileMenu className="" />
                             </li>
@@ -299,17 +301,19 @@ export function NavbarWithMegaMenu() {
                 {user !== null ?
                     (
                         <ul className="grid grid-cols-3 lg:hidden space-x-5 gap-8 justify-center items-center">
-                            <li className='hover:cursor-pointer'>
-                                {/* Change the badge visibility when implementing the wishlist */}
-                                <Badge invisible>
-                                    <FaRegHeart size={30} color="white" />
-                                </Badge>
-                            </li>
-                            <li className='hover:cursor-pointer'>
-                                <Badge content={loading ? '' : cartItems.length} className={cartItems.length > 0 ? 'flex justify-center items-center' : 'hidden'}>
-                                    <FiShoppingCart size={30} color="white" onClick={() => router.push('/cart')} />
-                                </Badge>
-                            </li>
+                            {(<div className={cartItems.length !== 0 ? 'block' : 'hidden'}>
+                                <li className='hover:cursor-pointer hidden'>
+                                    {/* Change the badge visibility when implementing the wishlist */}
+                                    <Badge invisible>
+                                        <FaRegHeart size={30} color="white" />
+                                    </Badge>
+                                </li>
+                                <li className='hover:cursor-pointer'>
+                                    <Badge content={loading ? '' : cartItems.length} className={cartItems.length > 0 ? 'flex justify-center items-center' : 'hidden'}>
+                                        <FiShoppingCart size={30} color="white" onClick={() => router.push('/cart')} />
+                                    </Badge>
+                                </li>
+                            </div>)}
                             <li>
                                 <ProfileMenu className="" />
                             </li>

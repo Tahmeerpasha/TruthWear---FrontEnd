@@ -3,12 +3,14 @@ import React from 'react';
 import { ListWithIcon } from '../tailwind/ListWithIcon';
 import CartSummary from './CartSummary';
 import { useSelector } from 'react-redux';
+import { FiShoppingCart } from 'react-icons/fi';
+import Link from 'next/link';
 
 const Cart = () => {
     const { cartItems } = useSelector((state) => state.cart);
     return (
-        <section className="py-2 bg-gray-100 font-poppins dark:bg-gray-700">
-            <div className="px-4 py-6 mx-auto max-w-7xl lg:py-4 md:px-6">
+        <section className="py-2 bg-gray-100 h-screen font-poppins dark:bg-gray-700">
+            {cartItems.length > 0 ? <div className="px-4 py-6 mx-auto max-w-7xl lg:py-4 md:px-6">
                 <h2 className="mb-8 text-4xl font-bold dark:text-gray-400">Your Cart</h2>
                 <div className="p-6 mb-8 border bg-gray-50 dark:bg-gray-800 dark:border-gray-800">
                     <div className="flex-wrap items-center hidden mb-6 -mx-4 md:flex md:mb-8">
@@ -34,7 +36,15 @@ const Cart = () => {
                         <CartSummary />
                     </div>
                 </div>
-            </div>
+            </div> :
+                <div className='flex items-center justify-center h-screen'>
+                    <div className='text-4xl flex flex-col items-center'>
+                        <FiShoppingCart size={100} />
+                        <span className='p-5'>YOUR SHOPPING CART IS EMPTY</span>
+                        <Link href={'/'} className='bg-black p-5 rounded-xl text-white text-2xl hover:cursor-pointer hover:scale-105'>Go back to home</Link>
+                    </div>
+                </div>
+            }
         </section >
 
     );

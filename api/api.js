@@ -9,13 +9,12 @@ const api = axios.create({
 api.defaults.headers.common['Content-Type'] = "application/json"
 api.defaults.headers.common['Accept'] = "application/json"
 
-api.interceptors.request.use((config) => {
+api.interceptors.request.use(async (config) => {
     const accessToken = localStorage.getItem('accessToken');
     const tokenExpired = isTokenExpired(accessToken);
     if (tokenExpired) {
         const refresh = localStorage.getItem('refreshToken')
-        refreshTokenApi(refresh)
-        location.reload()
+        await refreshTokenApi(refresh)
     }
 
     if (accessToken) {
@@ -58,8 +57,7 @@ const refreshTokenApi = async (refreshToken) => {
             const newToken = await response.data;
             console.log(newToken);
             localStorage.setItem('accessToken', newToken.access_token);
-            // Store the new token in a secure way (e.g., local storage, redux store)
-            // Handle the refreshed token as needed
+            window.location.reload()
         } else {
             // Handle the case where the refresh request fails
             console.log("Refresh token failed", response.data)

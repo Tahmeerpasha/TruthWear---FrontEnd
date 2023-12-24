@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { hideLoading } from "@/lib/features/cartSlice";
 import { fetchCategories, fetchProducts } from "@/api/utility";
 import { Footer } from "@/components/tailwind/Footer";
+import { DefaultPagination } from "@/components/tailwind/DefaultPagination";
+import { Tabs } from "@material-tailwind/react";
 
 const Page = () => {
 
@@ -49,10 +51,15 @@ const Page = () => {
       <div className="lg:flex items-center justify-center">
         <CarouselTransition products={products} />
       </div>
-      <div className="flex flex-col  items-center">
+      <div className="flex flex-col p-1 items-center">
         <p className='font-bold text-3xl mt-5 p-5'>Shop By Category</p>
-        <HorizontalCategories onSelectCategory={handleCategorySelect} onClearFilter={onClearFilter} categories={categories} />
-        <ProductCards products={products} />
+        <Tabs>
+          <HorizontalCategories onSelectCategory={handleCategorySelect} onClearFilter={onClearFilter} categories={categories} />
+          <ProductCards products={products} />
+        </Tabs>
+      </div>
+      <div className="w-full flex justify-center items-center p-10">
+        <DefaultPagination />
       </div>
       <Footer />
     </>
