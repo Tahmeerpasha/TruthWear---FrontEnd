@@ -12,7 +12,6 @@ import {
     MenuHandler,
     MenuList,
     MenuItem,
-    Badge,
 } from "@material-tailwind/react";
 import {
     ChevronDownIcon,
@@ -28,13 +27,11 @@ import {
     UserCircleIcon,
 } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
-import { FaRegHeart } from "react-icons/fa";
-import { FiShoppingCart } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { logout } from "@/api/authService";
 import { DialogWithForm } from "../tailwind/DialogWithForm";
 import { logoutUserAsync } from "@/lib/features/userSlice";
+import { useDispatch } from "react-redux";
 
 const getUser = () => {
     if (typeof window !== "undefined") {
@@ -44,8 +41,6 @@ const getUser = () => {
 }
 const user = getUser();
 console.log(user)
-// Get user Image later
-// const userImage = null;
 
 
 
@@ -93,7 +88,7 @@ function NavList() {
 
 export function NavbarAdmin() {
     const router = useRouter()
-    const { loading, cartItems } = useSelector((state) => state.cart)
+    // const { loading, cartItems } = useSelector((state) => state.cart)
 
 
     const [openNav, setOpenNav] = React.useState(false);
@@ -126,19 +121,6 @@ export function NavbarAdmin() {
                 {user !== null ?
                     (
                         <ul className="flex space-x-5 justify-center items-center">
-
-                            {/* <div className={user.l}>
-                                <li className='hover:cursor-pointer'>
-                                    <Badge invisible>
-                                        <FaRegHeart size={30} color="white" />
-                                    </Badge>
-                                </li>
-                                <li className='hover:cursor-pointer'>
-                                    <Badge content={loading ? '' : cartItems.length} className={cartItems.length > 0 ? 'flex justify-center items-center' : 'hidden'}>
-                                        <FiShoppingCart size={30} color="white" onClick={() => router.push('/cart')} />
-                                    </Badge>
-                                </li>
-                            </div> */}
                             <li>
                                 <ProfileMenu className="" />
                             </li>
