@@ -1,6 +1,5 @@
-import axios from "axios";
 import api from "./api";
-const BASE_URL = 'http://localhost:8080/api/v1'
+
 export const addToCartApi = async (product, qty) => {
     try {
         const user = JSON.parse(localStorage.getItem('siteUser'));

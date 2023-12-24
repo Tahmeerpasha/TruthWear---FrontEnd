@@ -1,10 +1,20 @@
 'use client'
 import { Carousel, Spinner } from "@material-tailwind/react";
-import { React, Suspense } from "react";
+import { React, Suspense, useEffect, useState } from "react";
 import Images from "../Images";
 import { useRouter } from "next/navigation";
+import { fetchProducts } from "@/api/utility";
 
-export function CarouselTransition({ products }) {
+export function CarouselTransition() {
+    const [products, setProducts] = useState([])
+    const getProducts = async () => {
+        return await fetchProducts('/products')
+    }
+    useEffect(() => {
+        getProducts().then(res => {
+            setProducts(res)
+        })
+    }, [])
     const router = useRouter();
     const handleClick = (id) => {
         console.log(id)

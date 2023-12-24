@@ -49,7 +49,7 @@ const Page = () => {
   return (
     <>
       <div className="lg:flex items-center justify-center">
-        <CarouselTransition products={products} />
+        <CarouselTransition />
       </div>
       <div className="flex flex-col p-1 items-center">
         <p className='font-bold text-3xl mt-5 p-5'>Shop By Category</p>
