@@ -7,7 +7,7 @@ import { FaCheckCircle } from 'react-icons/fa'
 const page = () => {
     return (
         <div className='h-screen flex justify-center items-center'>
-            <ReactConfetti width={window.innerWidth} height={window.innerHeight} />
+            <ReactConfetti />
             <div className='flex flex-col  items-center'>
                 <FaCheckCircle color='green' size={300} />
                 <span className='lg:p-5 lg:text-4xl p-10 mx-10'>Your Transaction is been Successful. Thank you for shopping with us </span>
