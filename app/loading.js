@@ -14,9 +14,7 @@ const Loading = () => {
     }, []); // Empty dependency array ensures the effect runs only once on mount
 
     return showLoading ? (
-        <div className='flex flex-col items-center justify-center min-h-screen animate-spin transition delay-1000'>
-            {/* <Image src="/faith.jpg" alt="Logo" width={100} height={100} />
-            <div className='m-20'>Loading...</div> */}
+        <div className='flex flex-col items-center justify-center'>
             <Spinner />
         </div>
     ) : null;

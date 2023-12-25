@@ -24,7 +24,7 @@ export function CarouselTransition() {
     return (
         <Suspense fallback={<Spinner />}>
             <Carousel transition={{ duration: 2 }} className="lg:rounded-xl overflow-hidden lg:w-full lg:mx-10 bg-black lg:mt-4 h-[300px] lg:h-full lg:py-3" loop autoplay>
-                {products.length > 0 && products?.map(product => {
+                {products?.length > 0 && products?.map(product => {
                     return (
                         <div className="lg:max-h-[400px] flex  justify-between" key={product.id} onClick={() => handleClick(product.id)}>
                             <div className="flex flex-col text-white">

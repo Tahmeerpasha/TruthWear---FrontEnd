@@ -1,7 +1,7 @@
 import axios from 'axios';
 import api from './api';
 
-const BASE_URL = "http://localhost:8080/api/v1";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const login = async (email, password) => {
     try {
         const data = JSON.stringify({
@@ -19,17 +19,12 @@ const login = async (email, password) => {
         };
 
         const response = await axios.request(config);
-        console.log(response);
         const { token, refreshToken, siteUser } = response.data;
 
         // Save tokens to local storage
         localStorage.setItem('accessToken', token);
         localStorage.setItem('refreshToken', refreshToken);
         localStorage.setItem('siteUser', JSON.stringify(siteUser));
-
-        console.log(token);
-        console.log(refreshToken);
-        console.log(siteUser);
 
         return { token, refreshToken, siteUser };
     } catch (error) {

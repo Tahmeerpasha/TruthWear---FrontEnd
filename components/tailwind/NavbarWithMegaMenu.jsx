@@ -51,7 +51,7 @@ const getUser = () => {
     return null;
 }
 const user = getUser();
-console.log(user)
+// console.log(user)
 // Get user Image later
 // const userImage = null;
 

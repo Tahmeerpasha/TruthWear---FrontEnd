@@ -21,16 +21,11 @@ export const addToCartApi = async (product, qty) => {
                     quantity: qty
                 };
 
-                // Log the information for debugging
-                console.log("Cart:", cart);
-                console.log("CartItems:", cartItems);
 
                 // Make the POST request to 'shopping-cart-items'
                 const addToCartResponse = await api.post('shopping-cart-items', cartItems, { responseType: 'blob' });
 
                 // Log the response for debugging
-                console.log("Add to Cart Response:", addToCartResponse);
-
                 return addToCartResponse;
             } else {
                 console.log("Cart is undefined");
@@ -77,7 +72,6 @@ export const fetchCategories = async () => {
             throw new Error(`HTTP error! Status: ${response.status}`);
         } else {
             const data = await response.data;
-            console.log(data);
             return data;
         }
     } catch (error) {
@@ -94,7 +88,6 @@ export const fetchProducts = async (url) => {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.data;
-        console.log(data)
         return data;
     } catch (error) {
         console.log(error);

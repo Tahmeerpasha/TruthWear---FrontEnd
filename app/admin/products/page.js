@@ -48,11 +48,14 @@ const Page = () => {
     };
 
     useEffect(() => {
-        const url = selectedCategory
-            ? `/products/category/${selectedCategory}`
-            : `/products`;
-        fetchCategories();
-        fetchProducts(url);
+        const fetchData = async () => {
+            const url = selectedCategory
+                ? `/products/category/${selectedCategory}`
+                : `/products`;
+            await fetchCategories();
+            await fetchProducts(url);
+        }
+        fetchData();
     }, [selectedCategory]);
 
 

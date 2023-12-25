@@ -1,5 +1,5 @@
 'use client'
-import { Progress } from "@material-tailwind/react"
+import { Progress, Typography } from "@material-tailwind/react"
 import anime from "animejs"
 import Image from "next/image"
 import React, { useEffect, useState } from "react"
@@ -22,7 +22,7 @@ const SplashScreen = ({ finishLoading }) => {
             .add({
                 targets: '#logo',
                 delay: 0,
-                scale: 2.5,
+                scale: 2,
                 duration: 500,
                 easing: "easeInOutExpo",
             })
@@ -52,7 +52,7 @@ const SplashScreen = ({ finishLoading }) => {
     return (
         <div className='flex h-screen w-full items-center flex-col justify-center bg-black'>
             <Image id='logo' src={'/white-logo.jpg'} height={60} width={60} alt='splash-screen' />
-            <span className=" text-2xl mt-10 text-white p-10 animate-pulse">Welcome to the community of the chosen ones!</span>
+            <Typography className=" lg:text-2xl mt-10 text-white p-10 animate-pulse">Welcome to the community of the chosen ones!</Typography>
             <div className="w-1/2 flex justify-center items-center">
                 <Progress size="sm" id="progress-bar" value={progress} className="w-1/2" />
             </div>

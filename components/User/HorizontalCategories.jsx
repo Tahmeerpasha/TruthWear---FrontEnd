@@ -4,7 +4,7 @@ import { Tab, TabsHeader } from '@material-tailwind/react';
 const HorizontalCategories = ({ onSelectCategory, onClearFilter, categories }) => {
     return (
         <TabsHeader className='max-w-full'>
-            {categories.length > 0 && (
+            {categories?.length > 0 && (
                 <Tab key="all" value="All" onClick={onClearFilter}>
                     All
                 </Tab>

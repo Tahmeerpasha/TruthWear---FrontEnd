@@ -12,7 +12,7 @@ const CartSummary = () => {
     }, [cart]);
 
     const checkout = async () => {
-        await fetch("http://localhost:3000/api/checkout", {
+        await fetch(process.env.NEXT_PUBLIC_CHECKOUT_URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -24,7 +24,7 @@ const CartSummary = () => {
             })
             .then((response) => {
                 console.log(response);
-                if (response.url === 'http://localhost:3000/success')
+                if (response.url === process.env.STRIPE_SUCCESS_URL)
                     dispatch(clearCart())
                 if (response.url) {
                     window.location.href = response.url;
