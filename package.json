@@ -2,8 +2,9 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://ec2-13-234-115-90.ap-south-1.compute.amazonaws.com:8080/api/v1",
   "scripts": {
-    "dev": "node server.js",    
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
