@@ -4,6 +4,9 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+    httpsAgent: new (require('https')).Agent({
+        rejectUnauthorized: false, // Ignore SSL certificate validation errors
+    }),
 });
 api.defaults.headers.common['Content-Type'] = "application/json"
 api.defaults.headers.common['Accept'] = "application/json"
